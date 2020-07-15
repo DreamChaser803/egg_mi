@@ -1,8 +1,8 @@
 'use strict';
+// 继承基础控制器base
+const BaseController = require("./base.js");
 
-const Controller = require('egg').Controller;
-
-class AccessController extends Controller {
+class AccessController extends BaseController {
 
     /*
 

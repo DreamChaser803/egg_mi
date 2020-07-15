@@ -1,8 +1,8 @@
 'use strict';
+// 继承基础控制器base
+const BaseController = require("./base.js");
 
-const Controller = require('egg').Controller;
-
-class RoleController extends Controller {
+class RoleController extends BaseController {
 
     /*
     
@@ -18,7 +18,7 @@ class RoleController extends Controller {
 
     //角色增加
     async add() {
-        // this.ctx.body = "角色增加"
+        //    this.ctx.body = "角色增加"
         await this.ctx.render("admin/role/add")
     }
 

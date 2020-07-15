@@ -1,10 +1,16 @@
 'use strict';
+// 继承基础控制器base
+const BaseController = require("./base.js");
 
-const Controller = require('egg').Controller;
+class LoginController extends BaseController {
 
-class LoginController extends Controller {
   async index() {
     await this.ctx.render("/admin/login")
+  }
+
+
+  async dologin() {
+     await this.error("/admin/login")
   }
 }
 

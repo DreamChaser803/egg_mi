@@ -9,6 +9,10 @@ module.exports = app => {
   
   // 登入
   router.get('/admin/login', controller.admin.login.index);
+  //退出登入
+  router.get('/admin/dologin', controller.admin.login.dologin);
+  //图形验证码
+  router.get('/admin/verify', controller.admin.base.verify);
   
   //权限管理
   router.get("/admin/access",controller.admin.access.index);
