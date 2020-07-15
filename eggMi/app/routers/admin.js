@@ -7,6 +7,9 @@ module.exports = app => {
   const { router, controller } = app;
   router.get('/', controller.home.index);
   
+  // 登入
+  router.get('/admin/login', controller.admin.login.index);
+  
   //权限管理
   router.get("/admin/access",controller.admin.access.index);
   router.get("/admin/access/add",controller.admin.access.add);

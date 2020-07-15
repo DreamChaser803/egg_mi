@@ -13,19 +13,19 @@ class ManagerController extends Controller {
     // 管理员列表
     async index() {
         // this.ctx.body = "管理员列表"
-        await this.ctx.render("admin/manager/index",{
-            username : "yuanbing"
-        })
+        await this.ctx.render("admin/manager/index")
     }
 
     // 管理员增加
     async add() {
-        this.ctx.body = "管理员增加"
+        // this.ctx.body = "管理员增加"
+        await this.ctx.render("admin/manager/add")
     }
 
     //管理员编辑
     async edit() {
-        this.ctx.body = "管理员编辑"
+        // this.ctx.body = "管理员编辑"
+        await this.ctx.render("admin/manager/edit")
     }
 
     //管理员删除
