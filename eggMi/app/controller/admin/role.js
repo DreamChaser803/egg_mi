@@ -14,6 +14,7 @@ class RoleController extends BaseController {
     async index() {
         // this.ctx.body = "角色列表"
         await this.ctx.render("admin/role/index")
+        // console.log(this.ctx.state.userInfo)
     }
 
     //角色增加

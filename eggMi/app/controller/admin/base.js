@@ -11,15 +11,17 @@ class BaseController extends Controller {
     */
 
     // 成功提示
-    async success(redirectUrl) {
-        await this.ctx.render("admin/public/ ", {
-            redirectUrl
+    async success(redirectUrl,message) {
+        await this.ctx.render("admin/public/success", {
+            redirectUrl,
+            message : message || "操作成功!"
         })
     }
     //失败提示
-    async error(redirectUrl) {
+    async error(redirectUrl,message) {
         await this.ctx.render("admin/public/error", {
-            redirectUrl
+            redirectUrl,
+            message : message || "操作失败!"
         })
     }
     //图形验证码

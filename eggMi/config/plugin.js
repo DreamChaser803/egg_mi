@@ -16,5 +16,10 @@ module.exports = {
   nunjucks : {
     enable: true,
     package: 'egg-view-nunjucks',
+  },
+  // 配置mongoose
+  mongoose : {
+    enable: true,
+    package: 'egg-mongoose',
   }
 };
