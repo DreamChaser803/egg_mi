@@ -28,10 +28,17 @@ module.exports = app => {
   router.get("/admin/manager/edit",controller.admin.manager.edit);
   router.get("/admin/manager/delete",controller.admin.manager.delete);
 
-  //角色管理
+  //角色管理列表
   router.get("/admin/role",controller.admin.role.index);
+  //角色增加页面
   router.get("/admin/role/add",controller.admin.role.add);
+  //增加角色功能
+  router.post("/admin/role/doAdd",controller.admin.role.doAdd);
+  //编辑角色页面
   router.get("/admin/role/edit",controller.admin.role.edit);
+  //编辑角色功能
+  router.post("/admin/role/doEdit",controller.admin.role.doEdit);
+  
   router.get("/admin/role/delete",controller.admin.role.delete);
 
 };
