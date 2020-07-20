@@ -32,7 +32,7 @@ module.exports = appInfo => {
    //配置session
   config.session={
     key:'SESSION_ID',
-    maxAge:864000,  //时间限制
+    maxAge:1000*60*60*24,  //时间限制
     httpOnly: true, //只能服务端访问
     encrypt: true, //加密
     renew: true //  延长会话有效期       

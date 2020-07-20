@@ -15,20 +15,28 @@ module.exports = app => {
   router.get('/admin/loginOut', controller.admin.login.loginOut);
   //图形验证码
   router.get('/admin/verify', controller.admin.base.verify);
+  //统一删除功能
+  router.get("/admin/delete",controller.admin.base.delete);
+
   
-  //权限管理
+
+  //1，权限管理
   router.get("/admin/access",controller.admin.access.index);
   router.get("/admin/access/add",controller.admin.access.add);
   router.get("/admin/access/edit",controller.admin.access.edit);
-  router.get("/admin/access/delete",controller.admin.access.delete);
 
-  //管理员管理
+  //2，管理员管理列表
   router.get("/admin/manager",controller.admin.manager.index);
+  // 管理员增加页面
   router.get("/admin/manager/add",controller.admin.manager.add);
+  // 管理员增加功能
+  router.post("/admin/manager/doAdd",controller.admin.manager.doAdd);
+  //管理员编辑页面
   router.get("/admin/manager/edit",controller.admin.manager.edit);
-  router.get("/admin/manager/delete",controller.admin.manager.delete);
+  //管理员编辑功能
+  router.post("/admin/manager/doEdit",controller.admin.manager.doEdit);
 
-  //角色管理列表
+  //3，角色管理列表
   router.get("/admin/role",controller.admin.role.index);
   //角色增加页面
   router.get("/admin/role/add",controller.admin.role.add);
@@ -39,6 +47,4 @@ module.exports = app => {
   //编辑角色功能
   router.post("/admin/role/doEdit",controller.admin.role.doEdit);
   
-  router.get("/admin/role/delete",controller.admin.role.delete);
-
 };

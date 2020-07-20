@@ -10,13 +10,13 @@ module.exports = app => {
       mobile: { type: String  },
       email: { type: String  },
       status: { type: Number,default:1  },
-      role_id: { type:Schema.Types.ObjectId },
+      role_id: { type:Schema.Types.ObjectId }, //角色id
       add_time: {           
         type:Number,        
         default: d.getTime()
     
        },
-       is_super: { type:Number}  
+       is_super: { type:Number,default : 0}  //是否是超级管理员 1代表是
 
 
     });

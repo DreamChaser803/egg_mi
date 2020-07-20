@@ -15,7 +15,8 @@ module.exports = (options,app)=>{
         */
 
         // 设置全局变量
-        ctx.state.csrf = ctx.csrf
+        ctx.state.csrf = ctx.csrf //post请求csrf验证
+        ctx.state.prevPage =ctx.request.headers['referer'];   //上一页的地址
 
         //截取url
         let pathname = await url.parse(ctx.url).pathname;

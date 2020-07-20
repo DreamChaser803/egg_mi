@@ -9,37 +9,39 @@ class RoleController extends BaseController {
       用户RBAC角色管理  
     
     */
-
     //角色列表
     async index() {
-        
+
         //查询数据库角色列表
         let result = await this.ctx.model.Role.find({});
-        
+
         //模板渲染
-        await this.ctx.render("admin/role/index",{ list: result } )
+        await this.ctx.render("admin/role/index", { list: result })
 
     }
 
     //角色增加页面
     async add() {
-        
+
         await this.ctx.render("admin/role/add")
     }
 
     //角色增加功能
     async doAdd() {
-         
+        //设置编辑时间
+        let b = new Date();
+
         //增加数据库数据
         let role = new this.ctx.model.Role(
             {
                 title: this.ctx.request.body.title,
-                description: this.ctx.request.body.description
+                description: this.ctx.request.body.description,
+                add_time: b.getTime()
             }
         )
         await role.save();
-        
-        await this.success("/admin/role","角色增加成功")
+
+        await this.success("/admin/role", "角色增加成功")
 
 
     }
@@ -50,40 +52,40 @@ class RoleController extends BaseController {
         //查询数据库数据展示
         let edit = await this.ctx.model.Role.find(
             {
-                _id : this.ctx.request.query.id
+                _id: this.ctx.request.query.id
             }
         )
 
-        await this.ctx.render("admin/role/edit",{
-                list : edit
+        await this.ctx.render("admin/role/edit", {
+            list: edit
         })
     }
 
     //角色编辑功能
     async doEdit() {
-       
+
         //获取用户post参数
         let title = this.ctx.request.body.title;
         let description = this.ctx.request.body.description;
         let id = this.ctx.request.body.id;
 
+        //设置编辑时间
+        let b = new Date();
+
         //修改编辑数据库数据
         await this.ctx.model.Role.updateOne(
             {
-                _id : id
+                _id: id
             },
             {
-                title ,
-                description 
+                title,
+                description,
+                add_time: b.getTime()
             }
         )
-        await this.success("/admin/role","编辑成功")
+        await this.success("/admin/role", "编辑角色成功")
     }
 
-    //角色删除
-    async delete() {
-        this.ctx.body = "角色删除"
-    }
 
 }
 

@@ -31,10 +31,6 @@ class AccessController extends BaseController {
         await this.ctx.render("admin/access/edit")
     }
 
-    //   权限删除
-    async delete() {
-        this.ctx.body = "权限删除"
-    }
 }
 
 module.exports = AccessController;
