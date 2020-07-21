@@ -7,8 +7,8 @@ module.exports = app => {
   // console.log("1111111111111");
   
   const RoleSchema = new Schema({
-    title: { type: String  },
-    description: { type: String  },   
+    title: { type: String  , trim : true},
+    description: { type: String  , trim : true},   
     status: { type: Number,default: 1 },    
     add_time: {           
       type:Number,        

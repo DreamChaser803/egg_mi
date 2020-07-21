@@ -5,10 +5,10 @@ module.exports = app => {
     var d=new Date();
    
     const AdminSchema = new Schema({
-      username: { type: String  },
-      password: { type: String  },
-      mobile: { type: String  },
-      email: { type: String  },
+      username: { type: String  , trim : true},
+      password: { type: String  , trim : true},
+      mobile: { type: String  , trim : true},
+      email: { type: String  , trim : true},
       status: { type: Number,default:1  },
       role_id: { type:Schema.Types.ObjectId }, //角色id
       add_time: {           

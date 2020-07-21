@@ -53,9 +53,11 @@
                             <td><%= manager[i].email%></td>
                             <td><%= manager[i].role[0].title%></td>
 
-                            <td class="text-center"><a href="/admin/manager/edit?id=<%=manager[i]._id%>&title=<%= manager[i].role[0].title%>">编辑</a> <a href="/admin/delete?model=Admin&id=<%= manager[i]._id%>">删除</a></td>
+                            <td class="text-center"><a
+                                    href="/admin/manager/edit?id=<%=manager[i]._id%>">编辑</a>
+                                <a href="/admin/delete?model=Admin&id=<%= manager[i]._id%>">删除</a></td>
                         </tr>
-                            <% } %>
+                        <% } %>
 
                     </tbody>
                 </table>
