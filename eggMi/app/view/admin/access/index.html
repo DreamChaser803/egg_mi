@@ -1,21 +1,18 @@
+<%- include ../public/page_header.html %>
 
-
-<!-- 公共头部 -->
-<%- include ../public/page_header.html%>
 
 <div class="container-fluid">
     <div class="row">
         <div class="col-sm-2">
-            
-                <!-- 公共左侧菜单栏 -->
-           <%- include ../public/page_aside.html%>
-          
+            <%- include ../public/page_aside.html %>
+
+
         </div>
         <div class="col-sm-10">
-           
+
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    搜索权限
+                    搜索角色
                 </div>
                 <div class="panel-body">
                     <form role="form" class="form-inline">
@@ -36,45 +33,67 @@
             <div class="table-responsive">
                 <table class="table table-bordered">
                     <thead>
-                    <tr class="th">
-                        <th>编号</th>
-                        <th>图标</th>
-                        <th>名称</th>
-                        <th>价格</th>
-                        <th>邮费</th>
-                       
-                        <th class="text-center">操作</th>
-                    </tr>
+                        <tr>
+                            <th>模块名称</th>
+                            <th>节点类型</th>
+                            <th>操作名称</th>
+                            <th>操作地址</th>
+                            <th>排序</th>
+                            <th>描述</th>
+
+                            <th class="text-center">操作</th>
+                        </tr>
                     </thead>
                     <tbody>
 
-                    <tr>
-                        <td>1</td>
-                        <td>图标</td>
-                        <td>背包1111111</td>
-                        <td>20元</td>
-                        <td>10元</td>
-                      
-                        <td class="text-center">修改  删除</td>
-                    </tr>
-					   <tr>
-                        <td>2</td>
-                        <td>图标</td>
-                        <td>thinpad笔记本电脑</td>
-                        <td>20元</td>
-                        <td>10元</td>
-                      
-                        <td class="text-center">修改  删除</td>
-                    </tr>
-					   <tr>
-                        <td>3</td>
-                        <td>图标</td>
-                        <td>iphone7</td>
-                        <td>20元</td>
-                        <td>10元</td>
-                      
-                        <td class="text-center">修改  删除</td>
-                    </tr>
+
+
+                        <%for(var i=0;i<list.length;i++){%>
+                        <tr>
+                            <td><%=list[i].module_name%></td>
+                            <td>
+                                <%if(list[i].type==1){%>
+                                模块
+                                <%}else if(list[i].type==2){%>
+                                菜单
+                                <%}else{%>
+                                操作
+                                <%}%>
+                                </td>
+                            <td><%=list[i].action_name%></td>
+
+                            <td><%=list[i].url%></td>
+                            <td><%=list[i].sort%></td>
+
+                            <td><%=list[i].description%></td>
+
+                            <td class="text-center"><a href="/admin/access/edit?id=<%=list[i]._id%>">编辑</a></td>
+                        </tr>
+
+                        <%for(var j=0;j<list[i].access.length;j++){%>
+                        <tr>
+                            <td>----<%=list[i].access[j].module_name%></td>
+                            <td>
+                                <%if(list[i].access[j].type==1){%>
+                                模块
+                                <%}else if(list[i].access[j].type==2){%>
+                                菜单
+                                <%}else{%>
+                                操作
+                                <%}%>
+                             </td>
+                            <td><%=list[i].access[j].action_name%></td>
+
+                            <td><%=list[i].access[j].url%></td>
+                            <td><%=list[i].access[j].sort%></td>
+
+                            <td><%=list[i].access[j].description%></td>
+
+                            <td class="text-center"><a href="/admin/access/edit?id=<%=list[i].access[j]._id%>">编辑</a> <a href="/admin/delete?id=<%=list[i].access[j]._id%>&model=Access">删除</a></td>
+                        </tr>
+
+                        <%}%>
+                        <%}%>
 
                     </tbody>
                 </table>
@@ -85,4 +104,5 @@
 </div>
 
 </body>
+
 </html>

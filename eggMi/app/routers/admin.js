@@ -22,8 +22,14 @@ module.exports = app => {
 
   //1，权限管理
   router.get("/admin/access",controller.admin.access.index);
+  // 权限增加页面
   router.get("/admin/access/add",controller.admin.access.add);
+  // 权限增加功能
+  router.post("/admin/access/doAdd",controller.admin.access.doAdd);
+  // 权限编辑页面
   router.get("/admin/access/edit",controller.admin.access.edit);
+  // 权限编辑页面
+  router.post("/admin/access/doEdit",controller.admin.access.doEdit);
 
   //2，管理员管理列表
   router.get("/admin/manager",controller.admin.manager.index);
