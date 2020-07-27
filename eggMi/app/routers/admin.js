@@ -52,5 +52,9 @@ module.exports = app => {
   router.get("/admin/role/edit",controller.admin.role.edit);
   //编辑角色功能
   router.post("/admin/role/doEdit",controller.admin.role.doEdit);
+  //授权角色页面
+  router.get("/admin/role/auth",controller.admin.role.auth);
+  //授权角色功能
+  router.post("/admin/role/doAuth",controller.admin.role.doAuth);
   
 };

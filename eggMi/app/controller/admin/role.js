@@ -1,6 +1,7 @@
 'use strict';
 // 继承基础控制器base
 const BaseController = require("./base.js");
+const role = require("../../model/role.js");
 
 class RoleController extends BaseController {
 
@@ -86,6 +87,84 @@ class RoleController extends BaseController {
         await this.success("/admin/role", "编辑角色成功")
     }
 
+    //授权页面
+    async auth() {
+
+        /*
+
+         1、获取全部的权限  
+
+         2、查询当前角色拥有的权限（查询当前角色的权限id） 把查找到的数据放在数组中
+
+         3、循环遍历所有的权限数据     判断当前权限是否在角色权限的数组中，   如果在角色权限的数组中：选中    如果不在角色权限的数组中不选中
+         
+        */
+
+        // 获取授权角色id
+        let id = this.ctx.request.query.id;
+        // 获取角色有的权限
+        let result_access = await this.ctx.model.RoleAccess.find({ role_id: id });
+
+        // 储存该角色的所有权限id
+        let result_access_array = [];
+
+        result_access.map((value) => {
+            result_access_array.push(value.access_id.toString())
+        })
+        // 查询权限数据列表
+        let role_list = await this.ctx.model.Access.aggregate([
+            {
+                $lookup: {
+                    from: "access",
+                    localField: "_id",
+                    foreignField: "module_id",
+                    as: "access"
+                }
+            },
+            {
+                $match: {
+                    module_id: "0"
+                }
+            }
+        ])
+
+        for (let i = 0; i < role_list.length; i++) {
+            // 顶级模块
+            if (result_access_array.indexOf(role_list[i]._id.toString()) != -1) {
+                role_list[i].checked = true;
+            }
+            // 功能模块
+            for (let j = 0; j < role_list[i].access.length; j++) {
+                if (result_access_array.indexOf(role_list[i].access[j]._id.toString()) != -1) {
+                    role_list[i].access[j].checked = true;
+                }
+            }
+        }
+        await this.ctx.render("/admin/role/auth", { list: role_list, id })
+    }
+
+    //授权功能
+    async doAuth() {
+        // 获取角色id
+        let role_id = this.ctx.request.body.id;
+        // 获取保存的权限id
+        let access_node = this.ctx.request.body.access_node;
+
+        //增加权限之前先删除权限避免 重复增加
+        await this.ctx.model.RoleAccess.deleteMany({ "role_id": role_id })
+
+        //遍历 access_node 中的权限id
+        for (let i = 0; i < access_node.length; i++) {
+            let role_access = await new this.ctx.model.RoleAccess(
+                {
+                    role_id: role_id,
+                    access_id: access_node[i]
+                }
+            )
+            role_access.save()
+        }
+        await this.success("/admin/role/auth?id=" + role_id, "授权成功")
+    }
 
 }
 
