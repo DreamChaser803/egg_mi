@@ -102,44 +102,8 @@ class RoleController extends BaseController {
 
         // 获取授权角色id
         let id = this.ctx.request.query.id;
-        // 获取角色有的权限
-        let result_access = await this.ctx.model.RoleAccess.find({ role_id: id });
-
-        // 储存该角色的所有权限id
-        let result_access_array = [];
-
-        result_access.map((value) => {
-            result_access_array.push(value.access_id.toString())
-        })
-        // 查询权限数据列表
-        let role_list = await this.ctx.model.Access.aggregate([
-            {
-                $lookup: {
-                    from: "access",
-                    localField: "_id",
-                    foreignField: "module_id",
-                    as: "access"
-                }
-            },
-            {
-                $match: {
-                    module_id: "0"
-                }
-            }
-        ])
-
-        for (let i = 0; i < role_list.length; i++) {
-            // 顶级模块
-            if (result_access_array.indexOf(role_list[i]._id.toString()) != -1) {
-                role_list[i].checked = true;
-            }
-            // 功能模块
-            for (let j = 0; j < role_list[i].access.length; j++) {
-                if (result_access_array.indexOf(role_list[i].access[j]._id.toString()) != -1) {
-                    role_list[i].access[j].checked = true;
-                }
-            }
-        }
+        // 使用service 中的公共方法
+        let role_list = await this.ctx.service.admin.getAuthList(id)
         await this.ctx.render("/admin/role/auth", { list: role_list, id })
     }
 
