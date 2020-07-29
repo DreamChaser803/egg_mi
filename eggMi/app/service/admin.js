@@ -47,7 +47,8 @@ class AdminService extends Service {
                 url: pathname
             }
         )
-        console.log(accessUrlResult)
+        // console.log(accessUrlResult)
+        
         // 是否存在这个权限
         if (accessUrlResult.length > 0) {
             if (accessArray.indexOf(accessUrlResult[0]._id.toString()) != -1) {

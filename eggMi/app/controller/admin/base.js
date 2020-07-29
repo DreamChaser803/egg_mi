@@ -17,6 +17,7 @@ class BaseController extends Controller {
             message: message || "操作成功!"
         })
     }
+
     //失败提示
     async error(redirectUrl, message) {
         await this.ctx.render("admin/public/error", {
@@ -24,6 +25,7 @@ class BaseController extends Controller {
             message: message || "操作失败!"
         })
     }
+
     //图形验证码
     async verify() {
 
@@ -33,6 +35,7 @@ class BaseController extends Controller {
 
         this.ctx.body = captcha.data;// 给页面返回一张图片
     }
+
     //公共删除功能
     async delete() {
         /*
@@ -42,7 +45,7 @@ class BaseController extends Controller {
           3, 执行删除;
           4, 返回之前的页面; ctx.request.headers["referer"]  [上个页面地址]           
         */
-        
+
         let model = this.ctx.request.query.model; //获取要删除数据的  数据表
         let id = this.ctx.request.query.id;//获取要删除的数据的  _id
 
@@ -58,6 +61,52 @@ class BaseController extends Controller {
         } else {
             // await this.error(this.ctx.request.headers["referer"], "删除失败")
             await this.error(this.ctx.state.prevPage, "删除失败")
+        }
+
+    }
+
+    // 改变状态的方法  api 接口
+    async changeStatus() {
+
+        // console.log(this.ctx.request.query)
+        // 获取需要改变状态的参数
+        let model = this.ctx.request.query.model;// 数据表model
+        let attr = this.ctx.request.query.attr;// 更新的属性 如 status is_best
+        let id = this.ctx.request.query.id// 更新的 id
+
+        let statusResult = await this.ctx.model[model].find({ _id: id });
+
+        if (statusResult.length > 0) {
+            if (statusResult[0][attr] == 1) {
+                //注意 let 有块级作用域 
+                var json = {
+                    [attr]: 0
+                }
+            } else {
+                var json = {
+                    [attr]: 1
+                }
+            }
+            // 修改状态
+            let statusUpdate = await this.ctx.model[model].updateOne(
+                {
+                    _id: id
+                },
+                json
+            );
+            //响应头
+            if (statusUpdate) {
+                this.ctx.body = { "message": '更新成功', "success": true };
+            } else {
+
+                this.ctx.body = { "message": '更新失败', "success": false };
+            }
+
+        } else {
+            this.ctx.body = {
+                message: "更新失败",
+                success: false
+            }
         }
 
     }

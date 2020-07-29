@@ -41,6 +41,8 @@
                             <th>管理员邮箱</th>
                             <th>管理员角色</th>
 
+                            <th class="text-center">状态</th>
+
                             <th class="text-center">操作</th>
                         </tr>
                     </thead>
@@ -52,10 +54,23 @@
                             <td><%= manager[i].mobile%></td>
                             <td><%= manager[i].email%></td>
                             <td><%= manager[i].role[0].title%></td>
+                            <td class="text-center">
 
-                            <td class="text-center"><a
-                                    href="/admin/manager/edit?id=<%=manager[i]._id%>">编辑</a>
-                                <a href="/admin/delete?model=Admin&id=<%= manager[i]._id%>">删除</a></td>
+                                <%if(manager[i].status==1){%>
+
+                                <img src="/public/admin/images/yes.gif"
+                                    onclick="app.changeStatus(this,'Admin','status','<%=manager[i]._id%>')" />
+
+                                <%}else{%>
+                                <img src="/public/admin/images/no.gif"
+                                    onclick="app.changeStatus(this,'Admin','status','<%=manager[i]._id%>')" />
+                                <%}%>
+
+                            </td>    
+                            <td class="text-center">
+                                <a href="/admin/manager/edit?id=<%=manager[i]._id%>">编辑</a>
+                                <a href="/admin/delete?model=Admin&id=<%= manager[i]._id%>">删除</a>
+                            </td>
                         </tr>
                         <% } %>
 

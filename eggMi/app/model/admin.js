@@ -9,7 +9,7 @@ module.exports = app => {
       password: { type: String  , trim : true},
       mobile: { type: String  , trim : true},
       email: { type: String  , trim : true},
-      status: { type: Number,default:1  },
+      status: { type: Number,default:1  }, // 状态
       role_id: { type:Schema.Types.ObjectId }, //角色id
       add_time: {           
         type:Number,        

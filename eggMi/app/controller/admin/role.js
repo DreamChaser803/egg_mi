@@ -1,7 +1,6 @@
 'use strict';
 // 继承基础控制器base
 const BaseController = require("./base.js");
-const role = require("../../model/role.js");
 
 class RoleController extends BaseController {
 

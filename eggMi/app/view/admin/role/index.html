@@ -37,7 +37,7 @@
                             <th>角色名称</th>
                             <th>描述</th>
                             <th>增加名称</th>
-
+                            <th class="text-center">状态</th>
                             <th class="text-center">操作</th>
                         </tr>
                     </thead>
@@ -48,6 +48,19 @@
                             <td><%=list[i].title%></td>
                             <td><%=list[i].description%></td>
                             <td><%= helper.getDate(list[i].add_time) %></td>
+                            <td class="text-center">
+
+                                <%if(list[i].status==1){%>
+
+                                <img src="/public/admin/images/yes.gif"
+                                    onclick="app.changeStatus(this,'Role','status','<%=list[i]._id%>')" />
+
+                                <%}else{%>
+                                <img src="/public/admin/images/no.gif"
+                                    onclick="app.changeStatus(this,'Role','status','<%=list[i]._id%>')" />
+                                <%}%>
+
+                            </td> 
 
                             <td class="text-center"> <a href="/admin/role/auth?id=<%=list[i]._id%>">授权</a> <a href="/admin/role/edit?id=<%=list[i]._id%>">编辑</a>  <a href="/admin/delete?model=Role&id=<%=list[i]._id%>">删除</a></td>
 
