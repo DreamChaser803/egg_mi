@@ -21,7 +21,10 @@ module.exports = appInfo => {
     match: '/admin',//通用设置,只有/admin开头的路由使用这个中间件
   }
 
-  
+  // 上传文件保存的服务器地址
+  config.uploadDir='app/public/admin/upload';
+
+
   //配置模板引擎
   config.view = {
     mapping: {

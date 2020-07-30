@@ -11,24 +11,26 @@
           
             <div class="panel panel-default">              
 			    <div class="panel-heading">
-                  上传图片 -多个图片/文件
+                  上传图片 -单个图片/文件
                 </div>
                 <div class="panel-body">
                     <div class="table-responsive input-form">
-                        <!-- 文件上传post请求 csrf 要放在 请求路由上 不然流数据获取不到csrf -->
-                        <form action="/admin/upload/doMultiUpload?_csrf=<%=csrf%>" method="post" enctype="multipart/form-data">
+                        <form action="/admin/upload/doSingleUpload?_csrf=<%=csrf%>" method="post" enctype="multipart/form-data">
                             <ul>
-                                
+
+
                                 <li>  图片名称: <input type="text" name="title"/></li>
-
-                                <li>  图片1: <input type="file" name="face"/></li>
-
-                                <li>  图片2: <input type="file" name="pic2"/></li>
 
                                 <li>
                                     图片描述:
                                     <textarea name="description" id="" cols="60" rows="8"></textarea>
                                 </li>
+
+                                <li>  文件选择: <input type="file" name="pic"/></li>
+
+                                <!-- <li>  url: <input type="text" name="url"/></li> -->
+
+                                <!-- 上传文件必须在所有其他的 fields 后面，否则在拿到文件流时可能还获取不到 fields。 -->
 
                                 <li>
                                     <br/>
@@ -50,4 +52,4 @@
 </div>
 
 </body>
-</html>
+</html> 

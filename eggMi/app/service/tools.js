@@ -3,6 +3,12 @@
 const Service = require('egg').Service;
 
 const md5 = require('md5');
+ 
+const path = require("path");
+
+const sd = require('silly-datetime');
+
+const mkdirp = require('mz-modules/mkdirp');
 
 const svgCaptcha = require('svg-captcha');
 
@@ -41,6 +47,38 @@ class ToolsService extends Service {
     var d = new Date();
 
     return d.getTime();
+
+  }
+  
+  //上传文件路径
+  async  getUploadFile(filename){
+
+    // 1、获取当前日期     20180920
+   
+      let day=sd.format(new Date(), 'YYYYMMDD');
+  
+    //2、创建图片保存的路径
+
+      let dir=path.join(this.config.uploadDir,day);
+
+      await mkdirp(dir);
+
+      let d = await this.getTime();   /*毫秒数*/
+
+
+      //返回图片保存的路径
+
+      let uploadDir=path.join(dir,d+path.extname(filename)); //文件后缀名
+
+
+      // app\public\admin\upload\20180914\1536895331444.png
+      return {
+        uploadDir:uploadDir,
+        saveDir:uploadDir.slice(3).replace(/\\/g,'/')
+      }
+
+
+
 
   }
 }

@@ -34,6 +34,7 @@ module.exports = app => {
   // 权限编辑页面
   router.post("/admin/access/doEdit", controller.admin.access.doEdit);
 
+
   //2，管理员管理列表
   router.get("/admin/manager", controller.admin.manager.index);
   // 管理员增加页面
@@ -44,6 +45,7 @@ module.exports = app => {
   router.get("/admin/manager/edit", controller.admin.manager.edit);
   //管理员编辑功能
   router.post("/admin/manager/doEdit", controller.admin.manager.doEdit);
+
 
   //3，角色管理列表
   router.get("/admin/role", controller.admin.role.index);
@@ -60,14 +62,29 @@ module.exports = app => {
   //授权角色功能
   router.post("/admin/role/doAuth", controller.admin.role.doAuth);
 
-  //上传图片演示
 
+  //4, 轮播图管理 [上传图片演示] 
   router.get('/admin/upload', controller.admin.upload.index);
+  // 增加 轮播图
+  router.get('/admin/upload/add', controller.admin.upload.add);
+  // 增加 轮播图功能
+  router.post('/admin/upload/doAdd', controller.admin.upload.doAdd);
+  // 修改 轮播图
+  router.get('/admin/upload/edit', controller.admin.upload.edit);
+  // 修改 轮播图功能
+  router.post('/admin/upload/doEdit', controller.admin.upload.doEdit);
 
-  router.get('/admin/upload/multi', controller.admin.upload.multi);
 
-  router.post('/admin/upload/doSingleUpload', controller.admin.upload.doSingleUpload);
 
-  router.post('/admin/upload/doMultiUpload', controller.admin.upload.doMultiUpload);
+  
+  // //上传图片演示
+
+  // router.get('/admin/upload', controller.admin.upload.index);
+
+  // router.get('/admin/upload/multi', controller.admin.upload.multi);
+
+  // router.post('/admin/upload/doSingleUpload', controller.admin.upload.doSingleUpload);
+
+  // router.post('/admin/upload/doMultiUpload', controller.admin.upload.doMultiUpload);
 
 };

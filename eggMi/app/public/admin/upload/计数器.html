@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        .home {
+            width: 400px;
+            margin: 0px auto;
+            font-size: 40px;
+            font-weight: 600;
+        }
+
+        .homes {
+            width: 400px;
+            margin: 0px auto;
+            margin-top: 380px;
+            font-size: 40px;
+            font-weight: 600;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="homes">
+        <span>结束时间</span>
+        <span id="geths">17</span>
+        <span>:</span>
+        <span id="getms">00</span>
+        <span>:</span>
+        <span id="getss">00</span>
+        <div class="home">
+            <span>剩余时间</span>
+            <span id="geth">01</span>
+            <span>:</span>
+            <span id="getm">00</span>
+            <span>:</span>
+            <span id="gets">10</span>
+        </div>
+</body>
+
+</html>
+
+<script>
+    
+    // let timeid = setInterval(() => {
+    let timeid = setInterval(() => {
+        let geth = document.getElementById("geth");
+        let getm = document.getElementById("getm");
+        let gets = document.getElementById("gets");
+
+        let h = geth.innerText;
+        let m = getm.innerText;
+        let s = gets.innerText;
+
+        h = parseInt(h);
+        m = parseInt(m);
+        s = parseInt(s);
+
+
+
+        let shi = new Date().getHours();
+        let f  = new Date().getMinutes();
+        let ms = new Date().getSeconds();
+
+        shi = shi < 10 ? "0" + shi : shi;
+        f  = f  < 10 ? "0" + f  : f ;
+        ms = ms < 10 ? "0" + ms : ms;
+        geth.innerText = shi;
+        getm.innerText = f;
+        gets.innerText = ms;
+
+        // console.log(0 == "00");
+
+        //  let n = new Date().getFullYear();
+        //  let y = new Date().getMonth();
+        //  let r = new Date().getDate();
+
+        console.log(shi)
+        console.log(f)
+        console.log(ms)
+        if (shi == 17 && f == 00 && ms == 00) {
+            clearInterval(timeid);
+            alert("下班luo")
+        }
+
+    }, 1000);
+
+
+
+</script>
