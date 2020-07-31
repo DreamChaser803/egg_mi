@@ -38,7 +38,7 @@
                             <th>节点类型</th>
                             <th>操作名称</th>
                             <th>操作地址</th>
-                            <th>排序</th>
+                            <th class="text-center">排序</th>
                             <th>描述</th>
 
                             <th class="text-center">操作</th>
@@ -63,8 +63,8 @@
                             <td><%=list[i].action_name%></td>
 
                             <td><%=list[i].url%></td>
-                            <td><%=list[i].sort%></td>
-
+                            <!-- <td><%=list[i].sort%></td> -->
+                            <td class="text-center"><span onclick="app.editNum(this,'Upload','sort','<%=list[i]._id%>')"><%=list[i].sort%></span></td>
                             <td><%=list[i].description%></td>
 
                             <td class="text-center"><a href="/admin/access/edit?id=<%=list[i]._id%>">编辑</a></td>
@@ -85,11 +85,12 @@
                             <td><%=list[i].access[j].action_name%></td>
 
                             <td><%=list[i].access[j].url%></td>
-                            <td><%=list[i].access[j].sort%></td>
+                            <!-- <td><%=list[i].access[j].sort%></td> -->
+                            <td class="text-center"><span onclick="app.editNum(this,'Upload','sort','<%=list[i]._id%>')"><%=list[i].sort%></span></td>
 
                             <td><%=list[i].access[j].description%></td>
 
-                            <td class="text-center"><a href="/admin/access/edit?id=<%=list[i].access[j]._id%>">编辑</a> <a href="/admin/delete?id=<%=list[i].access[j]._id%>&model=Access">删除</a></td>
+                            <td class="text-center"><a href="/admin/access/edit?id=<%=list[i].access[j]._id%>">编辑</a> <a class="delete" href="/admin/delete?id=<%=list[i].access[j]._id%>&model=Access">删除</a></td>
                         </tr>
 
                         <%}%>
@@ -106,3 +107,4 @@
 </body>
 
 </html>
+<script src="/public/admin/js/delete.js"></script>

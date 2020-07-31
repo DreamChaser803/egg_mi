@@ -20,6 +20,8 @@ module.exports = app => {
   router.get("/admin/delete", controller.admin.base.delete);
   //改变状态 api接口
   router.get('/admin/changeStatus', controller.admin.base.changeStatus);
+  //动态改变数据
+  router.get('/admin/editNum', controller.admin.base.editNum);
 
 
 

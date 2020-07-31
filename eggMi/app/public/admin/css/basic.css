@@ -52,7 +52,7 @@ ul{
     color:#f9f9f9;
 }
 .navbar-inverse{
-    background:#000;
+    background:#46473F;
 }
 
 
@@ -61,14 +61,40 @@ table .th{
 	background: #EEEEEE;
 }
 
+
+/*数量*/
+
+.table .text-center span{
+
+    display: block;
+    /* background: red; */
+    /* cursor: pointer; */
+    text-align: center;
+}
+.table .text-center span input{
+
+    width: 60px;
+
+
+}
+
+
  .input-form li{
-    margin: 5px 0px;
+    margin: 15px 0px;
+    color: #666;
 }
 
 input[type=file]{
  	display: inline !important;
 
 }
+
+.pic{
+
+
+    /* max-width: 100px; */
+}
+
 
 
 .col-sm-2,.col-sm-10{

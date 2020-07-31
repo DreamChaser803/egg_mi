@@ -25,6 +25,7 @@
                                     <th>分类</th>
                                     <th>图片</th>
                                     <th>跳转地址</th>
+                                    <th class="text-center">排序</th> 
                                     <th class="text-center">状态</th>
 
                                     <th class="text-center">操作</th>
@@ -53,8 +54,9 @@
                                         <%}%>
 
                                     </td>   
-                                    <td><img class="pic" height="100px" src="<%=list[i].focus_img%>" /></td>
+                                    <td><img class="pic" height="80px" src="<%=list[i].focus_img%>" /></td>
                                     <td><%=list[i].link%></td>
+                                    <td class="text-center"><span onclick="app.editNum(this,'Upload','sort','<%=list[i]._id%>')"><%=list[i].sort%></span></td>
                                     <td class="text-center">
 
                                         <%if(list[i].status==1){%>
@@ -70,7 +72,7 @@
                                      </td>                                                                    
                                      <td class="text-center">
                                          　<a href="/admin/upload/edit?id=<%=list[i]._id%>">编辑</a>　
-                                           <a class="delete" href="/admin/delete?model=Upload&id=<%=list[i]._id%>">删除</a>
+                                        <a class="delete" href="/admin/delete?model=Upload&id=<%=list[i]._id%>">删除</a>
                                     </td>
                                 </tr>
 
@@ -87,3 +89,5 @@
 
 </body>
 </html>
+
+<script src="/public/admin/js/delete.js"></script>

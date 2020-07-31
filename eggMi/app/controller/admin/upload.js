@@ -98,7 +98,7 @@ class UploadController extends BaseController {
   
         var updateResult=Object.assign(files,parts.field);
         
-        let result =await this.ctx.model.Upload.updateOne({"_id":id},updateResult);
+        await this.ctx.model.Upload.updateOne({"_id":id},updateResult);
   
         await this.success('/admin/upload','修改轮播图成功');
     }

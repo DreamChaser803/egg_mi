@@ -45,7 +45,6 @@ class BaseController extends Controller {
           3, 执行删除;
           4, 返回之前的页面; ctx.request.headers["referer"]  [上个页面地址]           
         */
-
         let model = this.ctx.request.query.model; //获取要删除数据的  数据表
         let id = this.ctx.request.query.id;//获取要删除的数据的  _id
 
@@ -108,6 +107,44 @@ class BaseController extends Controller {
                 success: false
             }
         }
+
+    }
+
+    //改变数量的方法
+    async editNum() {
+
+
+        var model = this.ctx.request.query.model; /*数据库表 Model*/
+        var attr = this.ctx.request.query.attr; /*更新的属性 如:sort */
+        var id = this.ctx.request.query.id; /*更新的 id*/
+        var num = this.ctx.request.query.num; /*数量*/
+
+        var result = await this.ctx.model[model].find({ "_id": id });
+
+        if (result.length > 0) {
+
+            var json = {/*es6 属性名表达式*/
+
+                [attr]: num
+            }
+
+            //执行更新操作
+            var updateResult = await this.ctx.model[model].updateOne({ "_id": id }, json);
+
+            if (updateResult) {
+                this.ctx.body = { "message": '更新成功', "success": true };
+            } else {
+
+                this.ctx.body = { "message": '更新失败', "success": false };
+            }
+
+        } else {
+
+            //接口
+            this.ctx.body = { "message": '更新失败,参数错误', "success": false };
+
+        }
+
 
     }
 

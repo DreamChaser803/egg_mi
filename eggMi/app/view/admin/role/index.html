@@ -62,7 +62,7 @@
 
                             </td> 
 
-                            <td class="text-center"> <a href="/admin/role/auth?id=<%=list[i]._id%>">授权</a> <a href="/admin/role/edit?id=<%=list[i]._id%>">编辑</a>  <a href="/admin/delete?model=Role&id=<%=list[i]._id%>">删除</a></td>
+                            <td class="text-center"> <a href="/admin/role/auth?id=<%=list[i]._id%>">授权</a> <a href="/admin/role/edit?id=<%=list[i]._id%>">编辑</a>  <a class="delete" href="/admin/delete?model=Role&id=<%=list[i]._id%>">删除</a></td>
 
                         </tr>
                         <%}%>
@@ -79,3 +79,5 @@
 </body>
 
 </html>
+
+<script src="/public/admin/js/delete.js"></script>

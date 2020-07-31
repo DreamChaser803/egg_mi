@@ -11,6 +11,8 @@ $(function () {
 
 })
 let app = {
+	
+	//状态改变
 	changeStatus: function (el, model, attr, id) {
 
 		// 客户端 ajax请求
@@ -26,5 +28,44 @@ let app = {
 			}
 
 		})
+	},
+
+	//改动数据动态改变  ajax请求
+	editNum:function(el,model,attr,id){
+
+		var val=$(el).html();
+		// console.log(val)
+
+		var input=$("<input value='' />");//创建input标签
+
+
+		//把input放在sapn里面
+		$(el).html(input);
+
+		//让input获取焦点  给input赋值
+		$(input).trigger('focus').val(val);
+
+			
+		//点击input的时候阻止冒泡
+		$(input).click(function(){
+
+			return false;
+		})
+		//鼠标离开的时候给sapn赋值
+		$(input).blur(function(){
+
+			var num=$(this).val();
+
+			$(el).html(num);
+
+			// console.log(model,attr,id)
+
+			$.get('/admin/editNum',{model:model,attr:attr,id:id,num:num},function(data) {
+
+				console.log(data);
+			})
+
+		})
+
 	}
 }
