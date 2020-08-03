@@ -3,7 +3,7 @@
 //使用node内置模块截取url
 
 const url = require("url");
-const { userInfo } = require("os");
+// const { userInfo } = require("os");
 
 
 module.exports = (options, app) => {

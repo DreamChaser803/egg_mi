@@ -2,12 +2,13 @@
     <%for(let i = 0; i < asideList.length; i++){%>	
     <li>
         <%if((asideList[i].checked && asideList[i].type==1) || (userInfo.is_super==1&& asideList[i].type==1)){%>
-        <h4><%=asideList[i].module_name%></h4>
+        <h4 class="asideh4"><%=asideList[i].module_name%> <span class="nav_open"></span></h4>
         
         <ul>
             <%for(let j = 0; j < asideList[i].access.length; j++){%>	
                 <%if((asideList[i].access[j].checked && asideList[i].access[j].type!=3) || (userInfo.is_super==1 && asideList[i].access[j].type!=3)){%>
-                    <li  class="list-group-item"> <a href="<%=asideList[i].access[j].url%>">  <%=asideList[i].access[j].action_name %></a></li>
+                                                                                           <!-- target="rightMain" 表示 iframe  里面展示 -->
+                    <li  class="list-group-item"> <a href="<%=asideList[i].access[j].url%>" target="rightMain" >  <%=asideList[i].access[j].action_name %></a></li>
                 <%}%>
             <%}%>
         </ul>

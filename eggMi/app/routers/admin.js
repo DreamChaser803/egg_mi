@@ -23,6 +23,10 @@ module.exports = app => {
   //动态改变数据
   router.get('/admin/editNum', controller.admin.base.editNum);
 
+  //iframe重构
+  router.get('/admin', controller.admin.main.index);
+  router.get('/admin/welcome', controller.admin.main.welcome);
+
 
 
   //1，权限管理

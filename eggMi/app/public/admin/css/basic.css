@@ -71,6 +71,29 @@ table .th{
     /* cursor: pointer; */
     text-align: center;
 }
+
+.asideh4 .nav_close{ 
+    display:inline-block; 
+    width:0px; height:0px; 
+    border-bottom:none; 
+    border-top:6px solid rgba(255,255,255,.7);
+    border-left:6px solid transparent; 
+    border-right:6px solid transparent; 
+    float:right; 
+    position:relative; 
+    top:5px; 
+} 
+.asideh4 .nav_open{ 
+    display:inline-block; 
+    width:0px; height:0px; 
+    border-bottom:6px solid #fff; 
+    border-top:none; 
+    border-left:6px solid transparent; 
+    border-right:6px solid transparent; 
+    float:right; 
+    position:relative; 
+    top:5px; 
+}
 .table .text-center span input{
 
     width: 60px;
@@ -80,7 +103,9 @@ table .th{
 
 
  .input-form li{
-    margin: 15px 0px;
+    margin: 10px 0px;
+    border-bottom: 1px solid #eee;
+    padding: 10px;
     color: #666;
 }
 

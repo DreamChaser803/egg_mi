@@ -1,64 +1,49 @@
 <!-- 公共头部 -->
 <%- include ../public/page_header.html%>
 
-<div class="container-fluid">
-    <div class="row">
-        <div class="col-sm-2">
+<div class="panel panel-default">
+    <div class="panel-heading">
+        角色授权
+    </div>
+    <div class="panel-body">
 
-            <!-- 公共左侧菜单栏 -->
-            <%- include ../public/page_aside.html%>
-        </div>
-        <div class="col-sm-10">
-
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    角色授权
-                </div>
-                <div class="panel-body">
-
-                    <form action="/admin/role/doAuth" method="POST">
+        <form action="/admin/role/doAuth" method="POST">
 
 
-                        <input type="hidden" name="_csrf" value="<%=csrf%>" />
-                        <input type="hidden" name="id" value="<%=id%>" />
+            <input type="hidden" name="_csrf" value="<%=csrf%>" />
+            <input type="hidden" name="id" value="<%=id%>" />
 
 
-                        <table class="table table-bordered">
-                            <%for(let i = 0; i < list.length; i++){%>
-                            <tr>
-                                <td align="right" style="background: #D8E2FA; padding-right: 10px; width: 150px;">
-                                    <label>
-                                        <input type="checkbox" class="module_cbo" <%if(list[i].checked){%> checked <%}%> value="<%=list[i]._id%>"
-                                            name="access_node[]">&nbsp;&nbsp;
-                                        <%=list[i].module_name%>
-                                    </label>
-                                </td>
-                                <td>
-                                    <%for(let j = 0; j < list[i].access.length; j++){%>
-                                    &nbsp;&nbsp;
-                                    <label>
-                                        <input type="checkbox" class="action_cbo" value="<%=list[i].access[j]._id%>" <%if(list[i].access[j].checked){%> checked <%}%> name="access_node[]">
+            <table class="table table-bordered">
+                <%for(let i = 0; i < list.length; i++){%>
+                <tr>
+                    <td align="right" style="background: #D8E2FA; padding-right: 10px; width: 150px;">
+                        <label>
+                            <input type="checkbox" class="module_cbo" <%if(list[i].checked){%> checked
+                                <%}%> value="<%=list[i]._id%>" name="access_node[]">&nbsp;&nbsp;
+                            <%=list[i].module_name%>
+                        </label>
+                    </td>
+                    <td>
+                        <%for(let j = 0; j < list[i].access.length; j++){%>
+                        &nbsp;&nbsp;
+                        <label>
+                            <input type="checkbox" class="action_cbo" value="<%=list[i].access[j]._id%>"
+                                <%if(list[i].access[j].checked){%> checked <%}%> name="access_node[]">
                                         &nbsp;&nbsp;<%=list[i].access[j].action_name%> </label>&nbsp;&nbsp;
-                                        <%}%>
+                            <%}%>
                                 </td>
                             </tr>
                             <%}%>
 
-                        </table>
+            </table>
 
 
-                        <button type="submit" class="btn btn-primary">提交</button>
+            <button type="submit" class="btn btn-primary">提交</button>
 
-                    </form>
-
-
-                </div>
-            </div>
+        </form>
 
 
-
-
-        </div>
     </div>
 </div>
 
