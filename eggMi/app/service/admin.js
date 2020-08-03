@@ -24,7 +24,7 @@ class AdminService extends Service {
         let pathname = url.parse(this.ctx.request.url).pathname
 
         // 4,忽略权限判断的地址    is_super表示是管理员is_super == 1 是超级管理员拥有所有权限
-        let ignoreUrl = ["/admin/login", "/admin/dologin", "/admin/loginOut", "/admin/verify"]
+        let ignoreUrl = ["/admin/login", "/admin/dologin", "/admin/loginOut", "/admin/verify","/admin","/admin/welcome"]
         if (ignoreUrl.indexOf(pathname) != -1 || userInfo.is_super == 1) {
             return true //允许访问
         }

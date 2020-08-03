@@ -30,7 +30,7 @@ class LoginController extends BaseController {
         // 4,保存用户信息在服务器
         this.ctx.session.userInfo = result[0];
         // 5,提示登入成功 并跳转到对应页面
-        await this.success("/admin/manager", "登入成功");
+        await this.success("/admin", "登入成功");
       } else {
         await this.error("/admin/login", "用户名或密码错误");
       }
