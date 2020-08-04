@@ -71,18 +71,43 @@ module.exports = app => {
 
   //4, 轮播图管理 [上传图片演示] 
   router.get('/admin/upload', controller.admin.upload.index);
-  // 增加 轮播图
+  
   router.get('/admin/upload/add', controller.admin.upload.add);
-  // 增加 轮播图功能
+
   router.post('/admin/upload/doAdd', controller.admin.upload.doAdd);
-  // 修改 轮播图
+  
   router.get('/admin/upload/edit', controller.admin.upload.edit);
-  // 修改 轮播图功能
+  
   router.post('/admin/upload/doEdit', controller.admin.upload.doEdit);
 
 
+  //商品类型
 
+  router.get('/admin/goodsType', controller.admin.goodsType.index);
+
+  router.get('/admin/goodsType/add', controller.admin.goodsType.add);
+
+  router.post('/admin/goodsType/doAdd', controller.admin.goodsType.doAdd);
+
+  router.get('/admin/goodsType/edit', controller.admin.goodsType.edit);
+
+  router.post('/admin/goodsType/doEdit', controller.admin.goodsType.doEdit);
+
+
+  //商品类型属性
+
+  router.get('/admin/goodsTypeAttribute', controller.admin.goodsTypeAttribute.index);
+
+  router.get('/admin/goodsTypeAttribute/add', controller.admin.goodsTypeAttribute.add);
   
+  router.post('/admin/goodsTypeAttribute/doAdd', controller.admin.goodsTypeAttribute.doAdd);
+
+  router.get('/admin/goodsTypeAttribute/edit', controller.admin.goodsTypeAttribute.edit);
+
+  router.post('/admin/goodsTypeAttribute/doEdit', controller.admin.goodsTypeAttribute.doEdit);
+
+
+
   // //上传图片演示
 
   // router.get('/admin/upload', controller.admin.upload.index);
