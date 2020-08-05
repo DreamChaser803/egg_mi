@@ -2,8 +2,9 @@
 
 
 <div class="panel panel-default">
-    <div class="panel-heading">
-        <a href="/admin/goodsTypeAttribute/add?id=<%=cate_id%>" class="btn btn-primary">增加商品类型属性</a>
+    <div class="panel-heading clear">
+        <span>商品类型属性</span> <a href="/admin/goodsTypeAttribute/add?id=<%=cate_id%>"
+            class="btn btn-primary fr">增加商品类型属性</a>
     </div>
     <div class="panel-body">
         <!--
@@ -18,6 +19,7 @@
                         <th>属性值的录入方式</th>
                         <th>可选值列表</th>
                         <th>增加时间</th>
+                        <th class="text-center">排序</th>
                         <th class="text-center">状态</th>
 
                         <th class="text-center">操作</th>
@@ -44,6 +46,8 @@
                         <td><%=list[i].attr_value%></td>
 
                         <td><%=helper.getDate(list[i].add_time)%></td>
+                        
+                        <td class="text-center"><span onclick="app.editNum(this,'GoodsTypeAttribute','sort','<%=list[i]._id%>')"><%=list[i].sort%></span></td>
 
                         <td class="text-center">
 

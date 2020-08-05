@@ -4,6 +4,32 @@ ul{
     padding: 0px;
 }
 
+.fr{
+
+    float: right;
+}
+
+.fl{
+
+    float: left;
+}
+
+.clear::after{
+
+    clear: both;
+    content: '';
+
+    height: 0px;
+    display: block;
+
+
+}
+
+.panel-heading span{
+    position: relative;
+    top:10px;
+}
+
 .aside h4{
 	margin-top: 0px;
 	font-size: 15px;

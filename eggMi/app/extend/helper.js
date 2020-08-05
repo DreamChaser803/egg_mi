@@ -6,5 +6,7 @@ module.exports = {
     getDate(param){
        
         return sd.format(new Date(param), 'YYYY-MM-DD-HH:mm');
-    }
+    },
+
+    
 }
