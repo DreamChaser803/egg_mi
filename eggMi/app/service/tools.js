@@ -12,6 +12,9 @@ const mkdirp = require('mz-modules/mkdirp');
 
 const svgCaptcha = require('svg-captcha');
 
+const Jimp = require("jimp"); //缩略图
+
+
 class ToolsService extends Service {
 
 
@@ -32,14 +35,12 @@ class ToolsService extends Service {
     return captcha;
   }
 
-
   //md5 加密
   async md5(str) {
 
     return md5(str)
 
   }
-
 
   //时间错
   async getTime() {
@@ -80,6 +81,17 @@ class ToolsService extends Service {
 
 
 
+  }
+
+  //缩略图
+  async JimpImg(target){
+    Jimp.read(target, (err, lenna) => {
+      if (err) throw err;
+      lenna.resize(200, 200) // resize
+          .quality(60) // set JPEG quality
+          // .greyscale() // set greyscale
+          .write( target + '_200x200' + path.extname(target)); // save
+  });
   }
 }
 

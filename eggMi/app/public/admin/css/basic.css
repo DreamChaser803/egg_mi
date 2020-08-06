@@ -25,6 +25,20 @@ ul{
 
 }
 
+.input{
+
+    width:600px;
+}
+
+
+.form_input span{
+    display: inline-block;
+
+    width: 100px;
+    text-align: right;
+
+}
+
 .panel-heading span{
     position: relative;
     top:10px;

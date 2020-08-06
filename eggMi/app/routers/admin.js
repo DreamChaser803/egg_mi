@@ -71,13 +71,13 @@ module.exports = app => {
 
   //4, 轮播图管理 [上传图片演示] 
   router.get('/admin/upload', controller.admin.upload.index);
-  
+
   router.get('/admin/upload/add', controller.admin.upload.add);
 
   router.post('/admin/upload/doAdd', controller.admin.upload.doAdd);
-  
+
   router.get('/admin/upload/edit', controller.admin.upload.edit);
-  
+
   router.post('/admin/upload/doEdit', controller.admin.upload.doEdit);
 
 
@@ -99,14 +99,25 @@ module.exports = app => {
   router.get('/admin/goodsTypeAttribute', controller.admin.goodsTypeAttribute.index);
 
   router.get('/admin/goodsTypeAttribute/add', controller.admin.goodsTypeAttribute.add);
-  
+
   router.post('/admin/goodsTypeAttribute/doAdd', controller.admin.goodsTypeAttribute.doAdd);
 
   router.get('/admin/goodsTypeAttribute/edit', controller.admin.goodsTypeAttribute.edit);
 
   router.post('/admin/goodsTypeAttribute/doEdit', controller.admin.goodsTypeAttribute.doEdit);
+  
 
+  //商品分类模块
 
+  router.get('/admin/goodsCate', controller.admin.goodsCate.index);
+
+  router.get('/admin/goodsCate/add', controller.admin.goodsCate.add);
+
+  router.post('/admin/goodsCate/doAdd', controller.admin.goodsCate.doAdd);
+
+  router.get('/admin/goodsCate/edit', controller.admin.goodsCate.edit);
+
+  router.post('/admin/goodsCate/doEdit', controller.admin.goodsCate.doEdit);
 
   // //上传图片演示
 
