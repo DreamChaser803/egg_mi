@@ -50,6 +50,11 @@ module.exports = appInfo => {
       // plugins: [createdPlugin, [updatedPlugin, pluginOptions]],
     },
   };
+  // https://github.com/eggjs/egg-multipart/blob/master/config/config.default.js
+  // 配置egg-multipart的参数最大数量
+  config.multipart = {
+    fields : 50 //配置表单数量
+  }
   
 
   // add your user config here

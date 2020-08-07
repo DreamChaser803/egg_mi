@@ -173,7 +173,7 @@ class GoodsCateController extends BaseController {
             this.service.tools.jimpImg(target);
         }
 
-        console.log(parts.field)
+        // console.log(parts.field)
         //增加操作
         if (parts.field.pid != 0) {
 

@@ -119,6 +119,23 @@ module.exports = app => {
 
   router.post('/admin/goodsCate/doEdit', controller.admin.goodsCate.doEdit);
 
+   
+  //商品模块
+   router.get('/admin/goods', controller.admin.goods.index);
+
+   router.get('/admin/goods/add', controller.admin.goods.add);
+
+   router.post('/admin/goods/doAdd', controller.admin.goods.doAdd);
+
+   router.get('/admin/goods/edit', controller.admin.goods.edit);
+
+   router.post('/admin/goods/doEdit', controller.admin.goods.doEdit);
+
+
+
+
+
+
   // //上传图片演示
 
   // router.get('/admin/upload', controller.admin.upload.index);
