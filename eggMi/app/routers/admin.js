@@ -130,6 +130,20 @@ module.exports = app => {
    router.get('/admin/goods/edit', controller.admin.goods.edit);
 
    router.post('/admin/goods/doEdit', controller.admin.goods.doEdit);
+   
+   router.get('/admin/goods/goodsTypeAttribute', controller.admin.goods.goodsTypeAttribute);   
+
+   
+  //商品颜色模块
+   router.get('/admin/goodsColor', controller.admin.goodsColor.index);
+
+   router.get('/admin/goodsColor/add', controller.admin.goodsColor.add);
+
+   router.post('/admin/goodsColor/doAdd', controller.admin.goodsColor.doAdd);
+
+   router.get('/admin/goodsColor/edit', controller.admin.goodsColor.edit);
+
+   router.post('/admin/goodsColor/doEdit', controller.admin.goodsColor.doEdit);
 
 
 
