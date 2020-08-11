@@ -17,12 +17,12 @@ module.exports = appInfo => {
 
   // add your middleware config here
   config.middleware = ["adminauth"];
-  config.adminauth={
+  config.adminauth = {
     match: '/admin',//通用设置,只有/admin开头的路由使用这个中间件
   }
 
   // 上传文件保存的服务器地址
-  config.uploadDir='app/public/admin/upload';
+  config.uploadDir = 'app/public/admin/upload';
 
 
   //配置模板引擎
@@ -32,10 +32,10 @@ module.exports = appInfo => {
       '.nj': 'nunjucks',//[egg可以配置多种模板引擎使用,业务需求而定]
     },
   };
-   //配置session
-  config.session={
-    key:'SESSION_ID',
-    maxAge:1000*60*60*24,  //时间限制
+  //配置session
+  config.session = {
+    key: 'SESSION_ID',
+    maxAge: 1000 * 60 * 60 * 24,  //时间限制
     httpOnly: true, //只能服务端访问
     encrypt: true, //加密
     renew: true //  延长会话有效期       
@@ -50,12 +50,25 @@ module.exports = appInfo => {
       // plugins: [createdPlugin, [updatedPlugin, pluginOptions]],
     },
   };
+
   // https://github.com/eggjs/egg-multipart/blob/master/config/config.default.js
   // 配置egg-multipart的参数最大数量
   config.multipart = {
-    fields : 50 //配置表单数量
+    fields: 50 //配置表单数量
   }
-  
+
+  exports.security = {
+    csrf: {
+      // 判断是否需要 ignore 的方法，请求上下文 context 作为第一个参数
+      ignore: ctx => {
+        if (ctx.request.url == '/admin/goods/goodsUploadImage' || ctx.request.url == '/admin/goods/goodsUploadPhoto') {
+          return true;
+        }
+        return false;
+      }
+    }
+  }
+
 
   // add your user config here
   const userConfig = {

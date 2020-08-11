@@ -204,3 +204,16 @@ input[type=file]{
 
     bottom: 20px;
 }
+
+.photoLib{
+
+    width: 120px;
+    margin: 40px auto 20px auto;
+
+    
+}
+/* 解决多图片上传bug */
+.photoLib div:nth-child(2){
+    width:100%!important;
+    height:100%!important;
+}   

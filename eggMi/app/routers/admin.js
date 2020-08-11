@@ -132,6 +132,10 @@ module.exports = app => {
    router.post('/admin/goods/doEdit', controller.admin.goods.doEdit);
    
    router.get('/admin/goods/goodsTypeAttribute', controller.admin.goods.goodsTypeAttribute);   
+   
+   router.post('/admin/goods/goodsUploadImage', controller.admin.goods.goodsUploadImage);   
+   
+   router.post('/admin/goods/goodsUploadPhoto', controller.admin.goods.goodsUploadPhoto);   
 
    
   //商品颜色模块

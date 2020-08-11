@@ -8,7 +8,7 @@
             <%for(let j = 0; j < asideList[i].access.length; j++){%>	
                 <%if((asideList[i].access[j].checked && asideList[i].access[j].type!=3) || (userInfo.is_super==1 && asideList[i].access[j].type!=3)){%>
                                                                                            <!-- target="rightMain" 表示 iframe  里面展示 -->
-                    <li  class="list-group-item"> <a href="<%=asideList[i].access[j].url%>" target="rightMain" >  <%=asideList[i].access[j].action_name %></a></li>
+                    <li  class="list-group-item"> <a href="<%=asideList[i].access[j].url%>" target="rightMain" > <%=asideList[i].access[j].action_name %></a></li>
                 <%}%>
             <%}%>
         </ul>
