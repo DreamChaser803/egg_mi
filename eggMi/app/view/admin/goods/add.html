@@ -22,6 +22,7 @@
 
 
 
+
 <div class="panel panel-default">              
         
     <div class="panel-body">
@@ -33,7 +34,7 @@
                 <ul class="nav nav-tabs" role="tablist">
                         <li role="presentation" class="active"><a href="#general"  role="tab" data-toggle="tab">通用信息</a></li>
                         <li role="presentation"><a href="#detail" role="tab" data-toggle="tab">详细描述</a></li>
-                        <li role="presentation"><a href="#mix"  role="tab" data-toggle="tab">商品属性</a></li>
+                        <li role="presentation"><a href="#mix"  role="tab" data-toggle="tab">其他信息</a></li>
                         <li role="presentation"><a href="#attribute"  role="tab" data-toggle="tab">规格与包装</a></li>
                         <li role="presentation"><a href="#photo"  role="tab" data-toggle="tab">商品相册</a></li>              
                         
@@ -52,7 +53,7 @@
                                         
                                         
                                         
-                                        <select name="class_cate_id" id="class_cate_id">
+                                        <select name="cate_id" id="cate_id">
 
 
                                             <%for(var i=0;i<goodsCate.length;i++){%>
@@ -61,8 +62,11 @@
                                                     <%for(var j=0;j<goodsCate[i].items.length;j++){%>
 
                                                             <option value="<%=goodsCate[i].items[j]._id%>">----<%=goodsCate[i].items[j].title%></option>
-       
+    
+    
+                                                            
                                                     <%}%>
+
 
                                             <%}%>
 
@@ -72,9 +76,9 @@
                                         <input type="hidden" name="cname" id="cname" />    
                 
                                     </li>
-                                    <li> <span> 商品图片:</span> <input type="file" name="pic"/></li>
-                                    <li>  <span>商品价格:</span> <input type="text" name="price"/></li>
-                                    <li>  <span>商品原价:</span>  <input type="text" name="old_price"/></li>
+                                    <li> <span> 商品图片:</span> <input type="file" name="goods_img"/></li>
+                                    <li>  <span>商品价格:</span> <input type="text" name="shop_price"/></li>
+                                    <li>  <span>商品原价:</span>  <input type="text" name="market_price"/></li>
         
                                     <li> <span>商品状态:</span>　<input type="radio" value="1" name="status" checked/> 显示                                    　
                                         <input type="radio" value="0" name="status"/>  隐藏
@@ -125,8 +129,19 @@
     
                                     <li> <span>更多属性:</span>
                                         
-                                            <input type="text" name="goods_attrs" class="goods_attr"/>  <i> 格式:  颜色:红色,白色,黄色 | 尺寸:41,42,43</i>
+                                            <input type="text" name="goods_attrs" class="goods_attrs"/>  <i> 格式:  颜色:红色,白色,黄色 | 尺寸:41,42,43</i>
                                         
+                                    </li>
+
+                                    <li> <span>Seo关键词:</span>
+                                        
+                                        <input type="text" name="goods_keywords" class="goods_keywords"/>  
+                                    
+                                    </li>
+
+                                    <li> <span>Seo描述:</span>                                                
+                                        <textarea name="goods_desc" id="goods_desc" cols="100" rows="2"></textarea>
+                                    
                                     </li>
                              
                                    
@@ -180,6 +195,7 @@
                 
 
                 <button type="submit" class="btn btn-success goods_content_btn">提交</button>
+
 
 
             </form>

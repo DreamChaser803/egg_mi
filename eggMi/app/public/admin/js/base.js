@@ -1,5 +1,32 @@
 $(function () {
 
+   //防止别人看源码 禁止右键 和 f12
+
+	// function click(e) {
+	// 	if (document.all) {
+	// 		if (event.button == 2 || event.button == 3) {
+	// 			alert("欢迎光临寒舍，有什么需要帮忙的话，请与站长联系！谢谢您的合作！！！");
+	// 			oncontextmenu = 'return false';
+	// 		}
+	// 	}
+	// 	if (document.layers) {
+	// 		if (e.which == 3) {
+	// 			oncontextmenu = 'return false';
+	// 		}
+	// 	}
+	// }
+	// if (document.layers) {
+	// 	document.captureEvents(Event.MOUSEDOWN);
+	// }
+	// document.onmousedown = click;
+	// document.oncontextmenu = new Function("return false;")
+	// document.onkeydown = document.onkeyup = document.onkeypress = function () {
+	// 	if (window.event.keyCode == 123) {
+	// 		window.event.returnValue = false;
+	// 		return (false);
+	// 	}
+	// }
+
 	$('.aside .asideh4').click(function () {
 
 		//		$(this).toggleClass('active');
@@ -24,9 +51,9 @@ $(function () {
 	$('.delete').click(function () {
 
 		var flag = confirm('您确定要删除吗?');
-	
+
 		return flag;
-	
+
 	})
 
 	app.resizeIframe()
@@ -35,12 +62,12 @@ $(function () {
 })
 
 let app = {
-	 
-	//设置iframe 右侧高度
-	resizeIframe:function(){
 
-		let heights = document.documentElement.clientHeight-100;	
-		
+	//设置iframe 右侧高度
+	resizeIframe: function () {
+
+		let heights = document.documentElement.clientHeight - 100;
+
 		document.getElementById('rightMain').height = heights
 	},
 

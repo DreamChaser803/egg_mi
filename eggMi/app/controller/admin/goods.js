@@ -13,7 +13,9 @@ class GoodsController extends BaseController {
 
   async index() {
 
-    await this.ctx.render("admin/goods/index");
+    let goodsResult = await this.ctx.model.Goods.find({});
+
+    await this.ctx.render("admin/goods/index", { list: goodsResult });
 
   }
 
@@ -80,6 +82,7 @@ class GoodsController extends BaseController {
 
     //增加商品信息
     formFields.add_time = b.getTime();
+    formFields.goods_color = formFields.goods_color.toString()
     let goodsRes = new this.ctx.model.Goods(formFields);
     let result = await goodsRes.save();
 
@@ -92,7 +95,7 @@ class GoodsController extends BaseController {
         let goodsImageRes = new this.ctx.model.GoodsImage({
           goods_id: result._id,
           img_url: goods_image_list[i],
-          add_time : b.getTime(),
+          add_time: b.getTime(),
         });
 
         await goodsImageRes.save();
@@ -113,12 +116,12 @@ class GoodsController extends BaseController {
 
           let goodsAttrRes = new this.ctx.model.GoodsAttr({
             goods_id: result._id,
-            class_cate_id : formFields.class_cate_id,
+            class_cate_id: formFields.class_cate_id,
             attribute_id: attr_id_list[i],
             attribute_type: goodsTypeAttributeResutl[0].attr_type,
             attribute_title: goodsTypeAttributeResutl[0].title,
             attribute_value: attr_value_list[i],
-            add_time : b.getTime(),
+            add_time: b.getTime(),
           });
 
           await goodsAttrRes.save();
@@ -215,7 +218,185 @@ class GoodsController extends BaseController {
 
   }
 
+  // async edit() {
+
+
+  //   //获取修改数据的id
+  //   var id=this.ctx.request.query.id;
+
+  //   //获取所有的颜色值
+  //   var colorResult=await this.ctx.model.GoodsColor.find({});
+
+  //   //获取所有的商品类型
+  //   var goodsType=await this.ctx.model.GoodsType.find({});
+
+  //   //获取商品分类
+
+  //   var goodsCate=await this.ctx.model.GoodsCate.aggregate([
+
+  //       {
+  //         $lookup:{
+  //           from:'goods_cate',
+  //           localField:'_id',
+  //           foreignField:'pid',
+  //           as:'items'      
+  //         }      
+  //     },
+  //     {
+  //         $match:{
+  //           "pid":'0'
+  //         }
+  //     }
+
+  //   ])
+
+
+  //   //获取修改的商品
+  //   var goodsResult=await this.ctx.model.Goods.find({'_id':id});
+
+  //   //获取规格信息  (待定)
+  //   var goodsAttsResult=await this.ctx.model.GoodsAttr.find({"goods_id":goodsResult[0]._id}); 
+
+
+
+  //   var goodsAttsStr='';
+
+  //   goodsAttsResult.forEach(async (val)=>{
+
+  //       if(val.attribute_type==1){    
+
+  //         goodsAttsStr+=`<li><span>${val.attribute_title}: 　</span><input type="hidden" name="attr_id_list" value="${val.attribute_id}" />  <input type="text" name="attr_value_list"  value="${val.attribute_value}" /></li>`;
+  //       }else if(val.attribute_type==2){
+  //         goodsAttsStr+=`<li><span>${val.attribute_title}: 　</span><input type="hidden" name="attr_id_list" value="${val.attribute_id}" />  <textarea cols="50" rows="3" name="attr_value_list">${val.attribute_value}</textarea></li>`;
+  //       }else{
+  //           //获取 attr_value  获取可选值列表
+  //           var oneGoodsTypeAttributeResult=await this.ctx.model.GoodsTypeAttribute.find({
+  //             _id:val.attribute_id
+  //           })
+
+  //           var arr=oneGoodsTypeAttributeResult[0].attr_value.split('\n'); 
+
+  //           goodsAttsStr+=`<li><span>${val.attribute_title}: 　</span><input type="hidden" name="attr_id_list" value="${val.attribute_id}" />`;
+
+  //           goodsAttsStr+=`<select name="attr_value_list">`;
+
+  //                   for(var j=0;j<arr.length;j++){
+
+  //                     if(arr[j]==val.attribute_value){
+  //                       goodsAttsStr+=`<option value="${arr[j]}" selected >${arr[j]}</option>`;
+  //                     }else{
+  //                       goodsAttsStr+=`<option value="${arr[j]}" >${arr[j]}</option>`;
+  //                     } 
+  //                   }
+  //           goodsAttsStr+=`</select>`;
+  //           goodsAttsStr+=`</li>`;
+  //       }
+
+  //   })
+  //           //商品的图库信息
+  //  var goodsImageResult=await this.ctx.model.GoodsImage.find({"goods_id":goodsResult[0]._id}); 
+
+  //   console.log(goodsImageResult);
+
+  //   await this.ctx.render('admin/goods/edit',{
+  //     colorResult:colorResult,
+  //     goodsType:goodsType,
+  //     goodsCate:goodsCate,
+  //     goodsResult:goodsResult[0],
+  //     goodsAtts:goodsAttsStr,
+  //     goodsImage:goodsImageResult
+
+  //   });
+
+
+
+  // } 
+
   async edit() {
+
+    //获取所有颜色
+    let colorResult = await this.ctx.model.GoodsColor.find();
+
+    //获取所有的商品类型
+    let goodsType = await this.ctx.model.GoodsType.find({});
+
+    //获取商品分类
+    let goodsCate = await this.ctx.model.GoodsCate.aggregate([
+
+      {
+        $lookup: {
+          from: 'goods_cate',
+          localField: '_id',
+          foreignField: 'pid',
+          as: 'items'
+        }
+      },
+      {
+        $match: {
+          "pid": '0'
+        }
+      }
+
+    ])
+    //获取商品信息
+    let goodsResult = await this.ctx.model.Goods.find({ _id: this.ctx.request.query.id });
+
+    //获取商品属性信息
+    let goodsAttsResult = await this.ctx.model.GoodsAttr.find({ goods_id: this.ctx.request.query.id });
+
+    let goodsAttsStr = "";
+
+    goodsAttsResult.forEach(async (value) => {
+      if (value.attribute_type == 1) {
+
+        goodsAttsStr += ` <li><span> ${value.attribute_title}: 　</span><input type="hidden" name="attr_id_list" value="${value._id}" />  <input type="text" name="attr_value_list" value="${value.attribute_value}" /></li>`
+
+      } else if (value.attribute_type == 2) {
+
+        goodsAttsStr += `<li><span> ${value.attribute_title}: 　</span> <input type="hidden" name="attr_id_list" value="${value._id}">  <textarea cols="50" rows="3" name="attr_value_list">${value.attribute_value}</textarea></li>`
+
+      } else if (value.attribute_type == 3) {
+
+        // 获取goods_type_attribute
+        let oneGoodsTypeAttributeResult = await this.ctx.model.GoodsTypeAttribute.find({ _id: value.attribute_id });
+
+        // console.log(oneGoodsTypeAttributeResult)
+
+        let arr = oneGoodsTypeAttributeResult[0].attr_value.split(' ');//以空格隔开                 
+
+        // console.log(arr)
+
+        goodsAttsStr += `<li><span>${value.attribute_title}: 　</span><input type="hidden" name="attr_id_list" value="${value.attribute_id}" />`;
+
+        goodsAttsStr += `<select name="attr_value_list">`;
+
+        for (var j = 0; j < arr.length; j++) {
+
+          if (arr[j] == value.attribute_value) {
+            goodsAttsStr += `<option value="${arr[j]}" selected >${arr[j]}</option>`;
+          } else {
+            goodsAttsStr += `<option value="${arr[j]}" >${arr[j]}</option>`;
+          }
+        }
+        goodsAttsStr += `</select>`;
+        goodsAttsStr += `</li>`;
+      }
+      console.log(goodsAttsStr)
+
+    })
+    //获取商品相册信息
+    let goodsImageResult = await this.ctx.model.GoodsImage.find({ goods_id: this.ctx.request.query.id }); //不能放在 goodsAttsResult前面 不然不显示goodsAttsResult部分数据
+    // console.log(goodsAttsResult)
+
+    await this.ctx.render("admin/goods/edit",
+      {
+        colorResult: colorResult,
+        goodsType: goodsType,
+        goodsCate: goodsCate,
+        goodsImage: goodsImageResult,
+        goodsResult: goodsResult[0],
+        goodsAtts: goodsAttsStr,
+      });
 
   }
 
