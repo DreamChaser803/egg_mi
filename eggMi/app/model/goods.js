@@ -4,9 +4,9 @@ module.exports = app => {
 
   var d=new Date();   
   const GoodsSchema = new Schema({
-    title: { type: String  },
-    sub_title: { type: String  },
-    goods_sn: { type: String  },
+    title: { type: String,default: ''},
+    sub_title: { type: String,default: '' },
+    goods_sn: { type: String,default: ''},
     cate_id: {type:Schema.Types.ObjectId },      
     click_count: {           
       type:Number,        
@@ -17,40 +17,52 @@ module.exports = app => {
       default: 1000   
     },
     shop_price:{
-      type:Number
+      type:Number,
+      default:0
     },
     market_price:{
-      type:Number
+      type:Number,
+      default:0
     },
     relation_goods:{         
-      type: String 
+      type: String,
+      default:''
     },
     goods_attrs:{
-      type: String 
+      type: String,
+      default:''
     },
     goods_version:{        /*版本*/
-      type: String 
+      type: String,
+      default:''
     },
     goods_img:{
-      type: String 
+      type: String,
+      default:''
     },
     goods_gift:{  
-      type: String 
+      type: String,
+      default:''
     },
     goods_fitting:{
-      type: String 
+      type: String,
+      default:''
     },
     goods_color:{
-      type: String 
+      type: String,
+      default:''
     },
     goods_keywords:{
-      type: String 
+      type: String,
+      default:''
     },
     goods_desc:{
-      type: String 
+      type: String ,
+      default:''
     },
     goods_content:{
-      type: String
+      type: String,
+      default:''
     },
     sort: { type: Number,default:100 },  
     is_delete:{

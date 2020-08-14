@@ -113,7 +113,7 @@ class AdminService extends Service {
                   }
               }
           }
-
+          
           return role_list
     }
 }

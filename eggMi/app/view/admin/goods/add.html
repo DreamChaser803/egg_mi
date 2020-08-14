@@ -23,72 +23,74 @@
 
 
 
-<div class="panel panel-default">              
-        
+<div class="panel panel-default">
+
     <div class="panel-body">
         <div class="table-responsive input-form">
-            <form action="/admin/goods/doAdd?_csrf=<%=csrf%>" method="post" class="goods_content" enctype="multipart/form-data">                 
+            <form action="/admin/goods/doAdd?_csrf=<%=csrf%>" method="post" class="goods_content"
+                enctype="multipart/form-data">
 
 
                 <!-- Nav tabs -->
                 <ul class="nav nav-tabs" role="tablist">
-                        <li role="presentation" class="active"><a href="#general"  role="tab" data-toggle="tab">通用信息</a></li>
-                        <li role="presentation"><a href="#detail" role="tab" data-toggle="tab">详细描述</a></li>
-                        <li role="presentation"><a href="#mix"  role="tab" data-toggle="tab">其他信息</a></li>
-                        <li role="presentation"><a href="#attribute"  role="tab" data-toggle="tab">规格与包装</a></li>
-                        <li role="presentation"><a href="#photo"  role="tab" data-toggle="tab">商品相册</a></li>              
-                        
+                    <li role="presentation" class="active"><a href="#general" role="tab" data-toggle="tab">通用信息</a></li>
+                    <li role="presentation"><a href="#detail" role="tab" data-toggle="tab">详细描述</a></li>
+                    <li role="presentation"><a href="#mix" role="tab" data-toggle="tab">其他信息</a></li>
+                    <li role="presentation"><a href="#attribute" role="tab" data-toggle="tab">规格与包装</a></li>
+                    <li role="presentation"><a href="#photo" role="tab" data-toggle="tab">商品相册</a></li>
+
                 </ul>
-                
+
                 <!-- Tab panes -->
                 <div class="tab-content">
                     <div role="tabpanel" class="tab-pane active" id="general">
 
 
-                            <ul class="form_input">
-                                    <li> <span> 商品标题:</span> <input type="text" name="title" class="input"/></li>                            
-                                    <li> <span> 附属标题:</span> <input type="text" name="sub_title" class="input"/></li>
-                                    <li>  <span>商品版本:</span> <input type="text" name="goods_version" class="input"/></li>                            
-                                    <li>  <span>所属分类:</span> 
-                                        
-                                        
-                                        
-                                        <select name="cate_id" id="cate_id">
+                        <ul class="form_input">
+                            <li> <span> 商品标题:</span> <input type="text" name="title" class="input" /></li>
+                            <li> <span> 附属标题:</span> <input type="text" name="sub_title" class="input" /></li>
+                            <li> <span>商品版本:</span> <input type="text" name="goods_version" class="input" /></li>
+                            <li> <span>所属分类:</span>
 
 
-                                            <%for(var i=0;i<goodsCate.length;i++){%>
 
-                                                    <option value="<%=goodsCate[i]._id%>"><%=goodsCate[i].title%></option>
-                                                    <%for(var j=0;j<goodsCate[i].items.length;j++){%>
+                                <select name="cate_id" id="cate_id">
 
-                                                            <option value="<%=goodsCate[i].items[j]._id%>">----<%=goodsCate[i].items[j].title%></option>
-    
-    
-                                                            
-                                                    <%}%>
+
+                                    <%for(var i=0;i<goodsCate.length;i++){%>
+
+                                    <option value="<%=goodsCate[i]._id%>"><%=goodsCate[i].title%></option>
+                                    <%for(var j=0;j<goodsCate[i].items.length;j++){%>
+
+                                    <option value="<%=goodsCate[i].items[j]._id%>">----<%=goodsCate[i].items[j].title%>
+                                    </option>
+
+
+
+                                    <%}%>
 
 
                                             <%}%>
 
-                                        
-                                        </select>
-                
-                                        <input type="hidden" name="cname" id="cname" />    
-                
-                                    </li>
-                                    <li> <span> 商品图片:</span> <input type="file" name="goods_img"/></li>
-                                    <li>  <span>商品价格:</span> <input type="text" name="shop_price"/></li>
-                                    <li>  <span>商品原价:</span>  <input type="text" name="market_price"/></li>
-        
-                                    <li> <span>商品状态:</span>　<input type="radio" value="1" name="status" checked/> 显示                                    　
-                                        <input type="radio" value="0" name="status"/>  隐藏
-                                     </li>
-                 
-                                     <li> <span>加入推荐:</span>　<input type="checkbox" value="1" name="is_best"/> 精品
-                                         <input type="checkbox" value="1" name="is_hot"/> 热销
-                                         <input type="checkbox" value="1" name="is_new"/> 新品
-                                     </li>
-                           </ul>
+
+                                </select>
+
+                                <input type="hidden" name="cname" id="cname" />
+
+                            </li>
+                            <li> <span> 商品图片:</span> <input type="file" name="goods_img" /></li>
+                            <li> <span>商品价格:</span> <input type="text" name="shop_price" /></li>
+                            <li> <span>商品原价:</span> <input type="text" name="market_price" /></li>
+
+                            <li> <span>商品状态:</span>　<input type="radio" value="1" name="status" checked /> 显示 　
+                                <input type="radio" value="0" name="status" /> 隐藏
+                            </li>
+
+                            <li> <span>加入推荐:</span>　<input type="checkbox" value="1" name="is_best" /> 精品
+                                <input type="checkbox" value="1" name="is_hot" /> 热销
+                                <input type="checkbox" value="1" name="is_new" /> 新品
+                            </li>
+                        </ul>
 
                     </div>
                     <div role="tabpanel" class="tab-pane" id="detail">
@@ -96,14 +98,16 @@
                         <textarea name="goods_content" id="content" cols="100" rows="8"></textarea>
                     </div>
                     <div role="tabpanel" class="tab-pane" id="mix">
-                            
-                            <ul class="form_input">
 
-                                    <li> <span>商品颜色:</span>
-                                       
-                                            <%for(var i=0;i<colorResult.length;i++){%>
-                                                <input type="checkbox" name="goods_color" value="<%=colorResult[i]._id%>" id="color_<%=colorResult[i]._id%>" /> <label for="color_<%=colorResult[i]._id%>"><%=colorResult[i].color_name%></label>
-                                            <%}%>
+                        <ul class="form_input">
+
+                            <li> <span>商品颜色:</span>
+
+                                <%for(var i=0;i<colorResult.length;i++){%>
+                                <input type="checkbox" name="goods_color" value="<%=colorResult[i]._id%>"
+                                    id="color_<%=colorResult[i]._id%>" /> <label
+                                    for="color_<%=colorResult[i]._id%>"><%=colorResult[i].color_name%></label>
+                                <%}%>
     
                                      </li>
     
@@ -162,8 +166,8 @@
                                             <option value="0">--请选择商品类型--</option>
 
                                             <%for(var i=0;i<goodsType.length;i++){%>
-                                                <option value="<%=goodsType[i]._id%>"><%=goodsType[i].title%></option>
-                                            <%}%>
+                                <option value="<%=goodsType[i]._id%>"><%=goodsType[i].title%></option>
+                                <%}%>
 
                                         </select>
     
@@ -210,10 +214,7 @@
 
 </html>
 <script>
-    // window.onload = function(){
-    //     console.log('1111111111111222222221')
-    // }
-
+    //关联商品类型
     $('#goods_type_id').change(function () {
 
         // alert($(this).val());
@@ -271,9 +272,7 @@
 
     })
 
-</script>
-<script>
-
+    //富文本编辑器配置
     $('#content').froalaEditor(
         {
             height: 400, //设置高度
@@ -289,8 +288,6 @@
         }
     )
 
-</script>
-<script>
     //商品相册上传
     let photoStr = '';
     $('#photoLib').diyUpload({

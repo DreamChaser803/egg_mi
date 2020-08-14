@@ -137,6 +137,10 @@ module.exports = app => {
    
    router.post('/admin/goods/goodsUploadPhoto', controller.admin.goods.goodsUploadPhoto);   
 
+   router.post('/admin/goods/changeGoodsImageColor', controller.admin.goods.changeGoodsImageColor);//图片添加颜色
+
+   router.post('/admin/goods/goodsImageRemove', controller.admin.goods.goodsImageRemove);
+
    
   //商品颜色模块
    router.get('/admin/goodsColor', controller.admin.goodsColor.index);

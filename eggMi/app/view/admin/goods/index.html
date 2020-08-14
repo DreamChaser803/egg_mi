@@ -31,8 +31,8 @@
                             
                             <td><%=list[i].title%></td>
                             <td><%=list[i].goods_sn%></td>
-                            <td><%=list[i].shop_price%></td>
-                            <td><%=list[i].click_count%></td>    
+                            <td class="text-center"><span onclick="app.editNum(this,'Goods','shop_price','<%=list[i]._id%>')"><%=list[i].shop_price%></span></td>
+                            <td class="text-center"><%=list[i].click_count%></td>    
                             
                             <td  class="text-center">
 
@@ -60,12 +60,12 @@
                             
                             <td  class="text-center">
 
-                                <%if(list[i].is_news==1){%>
+                                <%if(list[i].is_new==1){%>
 
-                                        <img src="/public/admin/images/yes.gif" onclick="app.changeStatus(this,'Goods','is_news','<%=list[i]._id%>')" />
+                                        <img src="/public/admin/images/yes.gif" onclick="app.changeStatus(this,'Goods','is_new','<%=list[i]._id%>')" />
 
                                 <%}else{%>
-                                        <img src="/public/admin/images/no.gif"  onclick="app.changeStatus(this,'Goods','is_news','<%=list[i]._id%>')" />
+                                        <img src="/public/admin/images/no.gif"  onclick="app.changeStatus(this,'Goods','is_new','<%=list[i]._id%>')" />
                                 <%}%>
 
                             </td> 
