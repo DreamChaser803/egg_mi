@@ -141,6 +141,8 @@ module.exports = app => {
 
    router.post('/admin/goods/goodsImageRemove', controller.admin.goods.goodsImageRemove);
 
+   router.get('/admin/goods/goodsDelete', controller.admin.goods.goodsDelete);
+
    
   //商品颜色模块
    router.get('/admin/goodsColor', controller.admin.goodsColor.index);
@@ -152,6 +154,18 @@ module.exports = app => {
    router.get('/admin/goodsColor/edit', controller.admin.goodsColor.edit);
 
    router.post('/admin/goodsColor/doEdit', controller.admin.goodsColor.doEdit);
+
+   
+  //导航模块
+   router.get('/admin/nav', controller.admin.nav.index);
+
+   router.get('/admin/nav/add', controller.admin.nav.add);
+
+   router.post('/admin/nav/doAdd', controller.admin.nav.doAdd);
+
+   router.get('/admin/nav/edit', controller.admin.nav.edit);
+
+   router.post('/admin/nav/doEdit', controller.admin.nav.doEdit);
 
 
 

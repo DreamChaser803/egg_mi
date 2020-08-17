@@ -15,9 +15,21 @@ class GoodsController extends BaseController {
 
   async index() {
 
-    let goodsResult = await this.ctx.model.Goods.find({});
+    let page = this.ctx.request.query.page || 1;
+    
+    let PageSize = 5;
 
-    await this.ctx.render("admin/goods/index", { list: goodsResult });
+    let goodsCount = await this.ctx.model.Goods.find({}).count();//goods数量
+
+    let goodsResult = await this.ctx.model.Goods.find({}).skip((page-1)*PageSize).limit(PageSize);//分页查询
+
+    await this.ctx.render(
+              "admin/goods/index", 
+              { 
+                list : goodsResult,
+                page : page,
+                totalPages : Math.ceil(goodsCount/PageSize) //向上取整
+              });
 
   }
 
@@ -268,7 +280,7 @@ class GoodsController extends BaseController {
 
     // 获取当前商品的颜色
     if (goodsResult[0].goods_color) { //判断goods 是否有 colors
-       //  5bbb68dcfe498e2346af9e4a,5bbb68effe498e2346af9e4b,5bc067d92e5f889dc864aa96
+      //  5bbb68dcfe498e2346af9e4a,5bbb68effe498e2346af9e4b,5bc067d92e5f889dc864aa96
       var colorArrTemp = goodsResult[0].goods_color.split(',');//转成数组
 
       var goodsColorArr = [];
@@ -400,7 +412,7 @@ class GoodsController extends BaseController {
       },
       formFields
     );
-    
+
     //编辑图库信息
     let goods_image_list = formFields.goods_image_list;
 
@@ -445,7 +457,7 @@ class GoodsController extends BaseController {
       for (let i = 0; i < attr_value_list.length; i++) {
         //查询goods_type_attribute
         if (attr_value_list[i]) {
- 
+
           let goodsTypeAttributeResutl = await this.ctx.model.GoodsTypeAttribute.findOne({ "_id": attr_id_list[i] });
           // console.log(goodsTypeAttributeResutl)
 
@@ -471,7 +483,7 @@ class GoodsController extends BaseController {
 
   }
 
-  //修改图片颜色
+  //编辑图片颜色
   async changeGoodsImageColor() {
 
     var color_id = this.ctx.request.body.color_id;
@@ -498,11 +510,11 @@ class GoodsController extends BaseController {
   //删除图片
   async goodsImageRemove() {
 
-    var goods_image_id = this.ctx.request.body.goods_image_id;
+    let goods_image_id = this.ctx.request.body.goods_image_id;
 
     //注意  图片要不要删掉   fs模块删除以前当前数据对应的图片
 
-    var deleteResult = await this.ctx.model.GoodsImage.findOne({ "_id": goods_image_id });            //注意写法
+    let deleteResult = await this.ctx.model.GoodsImage.findOne({ "_id": goods_image_id });            //注意写法
 
     // console.log(deleteResult.img_url)
     //数据库图片物理删除  注意加上app 不然找不到图片
@@ -518,7 +530,7 @@ class GoodsController extends BaseController {
       }
       // console.log('删除文件成功');
     })
-    var result = await this.ctx.model.GoodsImage.deleteOne({ "_id": goods_image_id });            //数据库图片删除地址
+    let result = await this.ctx.model.GoodsImage.deleteOne({ "_id": goods_image_id });            //数据库图片删除地址
 
     if (result) {
 
@@ -528,6 +540,46 @@ class GoodsController extends BaseController {
       this.ctx.body = { 'success': false, 'message': '删除数据失败' };
     }
 
+  }
+
+  //商品删除
+  async goodsDelete() {
+
+    let goods_id = this.ctx.request.query.id;
+
+    //  删除goods
+    await this.ctx.model.Goods.deleteOne({_id : goods_id});
+
+    // //  删除goods_attr
+    await this.ctx.model.GoodsAttr.deleteMany({goods_id : goods_id});
+
+    let deleteResult = await this.ctx.model.GoodsImage.findOne({ goods_id: goods_id });            //注意写法
+    console.log(deleteResult)
+
+    if (deleteResult) {
+
+      for (let i = 0; i < deleteResult.length; i++) {
+        
+        //数据库图片物理删除  注意加上app 不然找不到图片
+        fs.unlink("app" + deleteResult[i].img_url, (err) => {
+          if (err) {
+            console.log(err);
+          }
+          // console.log('删除文件成功');
+        })
+        fs.unlink("app" + deleteResult[i].img_url + "_200x200" + path.extname(deleteResult[i].img_url), (err) => {
+          if (err) {
+            console.log(err);
+          }
+          // console.log('删除文件成功');
+        })
+      }
+
+    }
+    // //  删除goods
+    await this.ctx.model.GoodsImage.deleteMany({goods_id : goods_id});
+
+    await this.success("/admin/goods","删除商品成功")
   }
 
 }
