@@ -105,7 +105,7 @@ module.exports = app => {
   router.get('/admin/goodsTypeAttribute/edit', controller.admin.goodsTypeAttribute.edit);
 
   router.post('/admin/goodsTypeAttribute/doEdit', controller.admin.goodsTypeAttribute.doEdit);
-  
+
 
   //商品分类模块
 
@@ -119,53 +119,77 @@ module.exports = app => {
 
   router.post('/admin/goodsCate/doEdit', controller.admin.goodsCate.doEdit);
 
-   
+
   //商品模块
-   router.get('/admin/goods', controller.admin.goods.index);
+  router.get('/admin/goods', controller.admin.goods.index);
 
-   router.get('/admin/goods/add', controller.admin.goods.add);
+  router.get('/admin/goods/add', controller.admin.goods.add);
 
-   router.post('/admin/goods/doAdd', controller.admin.goods.doAdd);
+  router.post('/admin/goods/doAdd', controller.admin.goods.doAdd);
 
-   router.get('/admin/goods/edit', controller.admin.goods.edit);
+  router.get('/admin/goods/edit', controller.admin.goods.edit);
 
-   router.post('/admin/goods/doEdit', controller.admin.goods.doEdit);
-   
-   router.get('/admin/goods/goodsTypeAttribute', controller.admin.goods.goodsTypeAttribute);   
-   
-   router.post('/admin/goods/goodsUploadImage', controller.admin.goods.goodsUploadImage);   
-   
-   router.post('/admin/goods/goodsUploadPhoto', controller.admin.goods.goodsUploadPhoto);   
+  router.post('/admin/goods/doEdit', controller.admin.goods.doEdit);
 
-   router.post('/admin/goods/changeGoodsImageColor', controller.admin.goods.changeGoodsImageColor);//图片添加颜色
+  router.get('/admin/goods/goodsTypeAttribute', controller.admin.goods.goodsTypeAttribute);
 
-   router.post('/admin/goods/goodsImageRemove', controller.admin.goods.goodsImageRemove);
+  router.post('/admin/goods/goodsUploadImage', controller.admin.goods.goodsUploadImage);
 
-   router.get('/admin/goods/goodsDelete', controller.admin.goods.goodsDelete);
+  router.post('/admin/goods/goodsUploadPhoto', controller.admin.goods.goodsUploadPhoto);
 
-   
+  router.post('/admin/goods/changeGoodsImageColor', controller.admin.goods.changeGoodsImageColor);//图片添加颜色
+
+  router.post('/admin/goods/goodsImageRemove', controller.admin.goods.goodsImageRemove);
+
+  router.get('/admin/goods/goodsDelete', controller.admin.goods.goodsDelete);
+
+
   //商品颜色模块
-   router.get('/admin/goodsColor', controller.admin.goodsColor.index);
+  router.get('/admin/goodsColor', controller.admin.goodsColor.index);
 
-   router.get('/admin/goodsColor/add', controller.admin.goodsColor.add);
+  router.get('/admin/goodsColor/add', controller.admin.goodsColor.add);
 
-   router.post('/admin/goodsColor/doAdd', controller.admin.goodsColor.doAdd);
+  router.post('/admin/goodsColor/doAdd', controller.admin.goodsColor.doAdd);
 
-   router.get('/admin/goodsColor/edit', controller.admin.goodsColor.edit);
+  router.get('/admin/goodsColor/edit', controller.admin.goodsColor.edit);
 
-   router.post('/admin/goodsColor/doEdit', controller.admin.goodsColor.doEdit);
+  router.post('/admin/goodsColor/doEdit', controller.admin.goodsColor.doEdit);
 
-   
+
   //导航模块
-   router.get('/admin/nav', controller.admin.nav.index);
+  router.get('/admin/nav', controller.admin.nav.index);
 
-   router.get('/admin/nav/add', controller.admin.nav.add);
+  router.get('/admin/nav/add', controller.admin.nav.add);
 
-   router.post('/admin/nav/doAdd', controller.admin.nav.doAdd);
+  router.post('/admin/nav/doAdd', controller.admin.nav.doAdd);
 
-   router.get('/admin/nav/edit', controller.admin.nav.edit);
+  router.get('/admin/nav/edit', controller.admin.nav.edit);
 
-   router.post('/admin/nav/doEdit', controller.admin.nav.doEdit);
+  router.post('/admin/nav/doEdit', controller.admin.nav.doEdit);
+
+
+  //文章分类模块
+  router.get('/admin/articleCate', controller.admin.articleCate.index);
+
+  router.get('/admin/articleCate/add', controller.admin.articleCate.add);
+
+  router.post('/admin/articleCate/doAdd', controller.admin.articleCate.doAdd);
+
+  router.get('/admin/articleCate/edit', controller.admin.articleCate.edit);
+
+  router.post('/admin/articleCate/doEdit', controller.admin.articleCate.doEdit);
+
+
+  //文章模块
+  router.get('/admin/article', controller.admin.article.index);
+
+  router.get('/admin/article/add', controller.admin.article.add);
+
+  router.post('/admin/article/doAdd', controller.admin.article.doAdd);
+
+  router.get('/admin/article/edit', controller.admin.article.edit);
+
+  router.post('/admin/article/doEdit', controller.admin.article.doEdit);
 
 
 
