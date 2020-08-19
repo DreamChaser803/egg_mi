@@ -52,7 +52,7 @@ class NavController extends BaseController {
 
         let navResult = await this.ctx.model.Nav.findOne({ _id: nav_id });
 
-        await this.ctx.render("/admin/nav/edit", { list: navResult });
+        await this.ctx.render("/admin/nav/edit", { list: navResult, prevPage:this.ctx.state.prevPage});
     }
 
     async doEdit() {
@@ -64,9 +64,9 @@ class NavController extends BaseController {
         let navResult = await this.ctx.model.Nav.update({ _id: _id }, navRes);
 
         if (navResult.ok) {
-            await this.success("/admin/nav", "编辑导航成功");
+            await this.success(this.ctx.request.body.prevPage, "编辑导航成功");
         } else {
-            await this.error("/admin/nav", "编辑导航失败");
+            await this.error(this.ctx.request.body.prevPage, "编辑导航失败");
         }
     }
 }

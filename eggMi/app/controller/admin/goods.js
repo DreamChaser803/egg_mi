@@ -16,20 +16,30 @@ class GoodsController extends BaseController {
   async index() {
 
     let page = this.ctx.request.query.page || 1;
-    
+
     let PageSize = 5;
+
+    //注意
+    let keyword = this.ctx.request.query.keyword;//接收搜索关键字
+    
+    let json = {};
+
+    if (keyword) {
+      json = Object.assign({ "title": { $regex: new RegExp(keyword) } });//模糊查询
+    }
 
     let goodsCount = await this.ctx.model.Goods.find({}).count();//goods数量
 
-    let goodsResult = await this.ctx.model.Goods.find({}).skip((page-1)*PageSize).limit(PageSize);//分页查询
+    let goodsResult = await this.ctx.model.Goods.find(json).skip((page - 1) * PageSize).limit(PageSize);//分页查询
 
     await this.ctx.render(
-              "admin/goods/index", 
-              { 
-                list : goodsResult,
-                page : page,
-                totalPages : Math.ceil(goodsCount/PageSize) //向上取整
-              });
+      "admin/goods/index",
+      {
+        list: goodsResult,
+        page: page,
+        totalPages: Math.ceil(goodsCount / PageSize), //向上取整
+        keyword: keyword
+      });
 
   }
 
@@ -359,7 +369,8 @@ class GoodsController extends BaseController {
         goodsImage: goodsImageResult,
         goodsResult: goodsResult[0],
         goodsAtts: goodsAttsStr,
-        goodsColor: goodsColorReulst
+        goodsColor: goodsColorReulst,
+        prevPage: this.ctx.state.prevPage
       });
 
   }
@@ -478,8 +489,8 @@ class GoodsController extends BaseController {
 
       })
     }
-
-    await this.success('/admin/goods', '编辑商品数据成功');
+    // prevPage
+    await this.success(parts.field.prevPage, '编辑商品数据成功');
 
   }
 
@@ -548,10 +559,10 @@ class GoodsController extends BaseController {
     let goods_id = this.ctx.request.query.id;
 
     //  删除goods
-    await this.ctx.model.Goods.deleteOne({_id : goods_id});
+    await this.ctx.model.Goods.deleteOne({ _id: goods_id });
 
     // //  删除goods_attr
-    await this.ctx.model.GoodsAttr.deleteMany({goods_id : goods_id});
+    await this.ctx.model.GoodsAttr.deleteMany({ goods_id: goods_id });
 
     let deleteResult = await this.ctx.model.GoodsImage.findOne({ goods_id: goods_id });            //注意写法
     console.log(deleteResult)
@@ -559,7 +570,7 @@ class GoodsController extends BaseController {
     if (deleteResult) {
 
       for (let i = 0; i < deleteResult.length; i++) {
-        
+
         //数据库图片物理删除  注意加上app 不然找不到图片
         fs.unlink("app" + deleteResult[i].img_url, (err) => {
           if (err) {
@@ -577,9 +588,9 @@ class GoodsController extends BaseController {
 
     }
     // //  删除goods
-    await this.ctx.model.GoodsImage.deleteMany({goods_id : goods_id});
+    await this.ctx.model.GoodsImage.deleteMany({ goods_id: goods_id });
 
-    await this.success("/admin/goods","删除商品成功")
+    await this.success("/admin/goods", "删除商品成功")
   }
 
 }

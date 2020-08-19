@@ -11,12 +11,21 @@ class RoleController extends BaseController {
     */
     //角色列表
     async index() {
+        
+        //注意
+        let keyword = this.ctx.request.query.keyword;//接收搜索关键字
+
+        let json = {};
+
+        if (keyword) {
+            json = Object.assign({ "title": { $regex: new RegExp(keyword) } });//模糊查询
+        }
 
         //查询数据库角色列表
-        let result = await this.ctx.model.Role.find({});
+        let result = await this.ctx.model.Role.find(json);
 
         //模板渲染
-        await this.ctx.render("admin/role/index", { list: result })
+        await this.ctx.render("admin/role/index", { list: result ,keyword : keyword})
 
     }
 

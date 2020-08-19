@@ -21,7 +21,7 @@
                                     <option value="0">顶级分类</option> 
 
                                     <%for(var i=0;i<cateList.length;i++){%>                                    
-                                            <option value="<%=cateList[i]._id%>" <%if(cateList[i]._id.toString()==list.pid){%> selected <%}%>><%=cateList[i].title%></option>                                           
+                                            <option value="<%=cateList[i]._id%>" <%if(cateList[i]._id.toString()==list.pid.toString()){%> selected <%}%>><%=cateList[i].title%></option>                                           
                                     <%}%>                                    
                                 </select>
                             </li>  

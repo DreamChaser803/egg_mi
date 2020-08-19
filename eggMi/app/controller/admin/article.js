@@ -142,7 +142,7 @@ class ArticleController extends BaseController {
 
     // console.log(article_list)
 
-    await this.ctx.render("admin/article/edit",{ cateList: articleCate, list : article_list });
+    await this.ctx.render("admin/article/edit",{ cateList: articleCate, list : article_list , prevPage : this.ctx.state.prevPage});
 
   }
 
@@ -184,7 +184,7 @@ class ArticleController extends BaseController {
         updateResult
     )
 
-    await this.success('/admin/article', '编辑文章成功');
+    await this.success(parts.field.prevPage, '编辑文章成功');
 
 }
 

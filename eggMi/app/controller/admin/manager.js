@@ -14,6 +14,16 @@ class ManagerController extends BaseController {
     // 管理员列表
     async index() {
 
+        
+    //注意
+    let keyword = this.ctx.request.query.keyword;//接收搜索关键字
+    
+    let json = {};
+
+    if (keyword) {
+      json = Object.assign({ "username": { $regex: new RegExp(keyword) } });//模糊查询
+    }
+
         //查询管理员数据列表
         let manager = await this.ctx.model.Admin.aggregate([
             {
@@ -23,10 +33,13 @@ class ManagerController extends BaseController {
                     foreignField: "_id",
                     as: "role"
                 }
+            },
+            {
+                $match : json
             }
         ])
 
-        await this.ctx.render("admin/manager/index", { manager })
+        await this.ctx.render("admin/manager/index", { manager : manager , keyword : keyword})
     }
 
     // 管理员增加页面

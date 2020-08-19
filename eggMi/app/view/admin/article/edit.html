@@ -26,6 +26,7 @@
                 <form action="/admin/article/doEdit?_csrf=<%=csrf%>" method="post" enctype="multipart/form-data" class="news_content">
                      
                     <input type="hidden" name="id" value="<%=list[0]._id%>"/>
+                    <input type="hidden" name="prevPage" value="<%=prevPage%>"/>
 
                     <!-- Nav tabs -->
                     <ul class="nav nav-tabs" role="tablist">
@@ -48,11 +49,11 @@
 
                                             <%for(var i=0;i<cateList.length;i++){%>
 
-                                                <option value="<%=cateList[i]._id%>" <%if(cateList[i]._id.toString() == list[0].cate_id){%> selected <%}%> ><%=cateList[i].title%></option>
+                                                <option value="<%=cateList[i]._id%>" <%if(cateList[i]._id.toString() == list[0].cate_id.toString()){%> selected <%}%> ><%=cateList[i].title%></option>
                                               
                                                 <%for(var j=0;j<cateList[i].items.length;j++){%>
 
-                                                    <option value="<%=cateList[i].items[j]._id%>" <%if(cateList[i].items[j]._id.toString() == list[0].cate_id){%> selected <%}%> >----<%=cateList[i].items[j].title%></option>
+                                                    <option value="<%=cateList[i].items[j]._id%>" <%if(cateList[i].items[j]._id.toString() == list[0].cate_id.toString()){%> selected <%}%> >----<%=cateList[i].items[j].title%></option>
 
                                                 <%}%>
 
