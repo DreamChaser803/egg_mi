@@ -6,8 +6,6 @@
 module.exports = app => {
   const { router, controller } = app;
 
-  router.get('/', controller.home.index);
-
   // 登入页面
   router.get('/admin/login', controller.admin.login.index);
   // 登入
@@ -190,8 +188,12 @@ module.exports = app => {
   router.get('/admin/article/edit', controller.admin.article.edit);
 
   router.post('/admin/article/doEdit', controller.admin.article.doEdit);
+  
 
+  //系统模块
+  router.get('/admin/setting', controller.admin.setting.index);
 
+  router.post('/admin/setting/doEdit', controller.admin.setting.doEdit);
 
 
 

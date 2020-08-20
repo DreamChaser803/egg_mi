@@ -3,7 +3,7 @@
 const Service = require('egg').Service;
 
 const md5 = require('md5');
- 
+
 const path = require("path");
 
 const sd = require('silly-datetime');
@@ -50,33 +50,33 @@ class ToolsService extends Service {
     return d.getTime();
 
   }
-  
+
   //上传文件路径
-  async  getUploadFile(filename){
+  async getUploadFile(filename) {
 
     // 1、获取当前日期     20180920
-   
-      let day=sd.format(new Date(), 'YYYYMMDD');
-  
+
+    let day = sd.format(new Date(), 'YYYYMMDD');
+
     //2、创建图片保存的路径
 
-      let dir=path.join(this.config.uploadDir,day);
+    let dir = path.join(this.config.uploadDir, day);
 
-      await mkdirp(dir);
+    await mkdirp(dir);
 
-      let d = await this.getTime();   /*毫秒数*/
-
-
-      //返回图片保存的路径
-
-      let uploadDir=path.join(dir,d+path.extname(filename)); //文件后缀名
+    let d = await this.getTime();   /*毫秒数*/
 
 
-      // app\public\admin\upload\20180914\1536895331444.png
-      return {
-        uploadDir:uploadDir,
-        saveDir:uploadDir.slice(3).replace(/\\/g,'/')
-      }
+    //返回图片保存的路径
+
+    let uploadDir = path.join(dir, d + path.extname(filename)); //文件后缀名
+
+
+    // app\public\admin\upload\20180914\1536895331444.png
+    return {
+      uploadDir: uploadDir,
+      saveDir: uploadDir.slice(3).replace(/\\/g, '/')
+    }
 
 
 
@@ -84,14 +84,18 @@ class ToolsService extends Service {
   }
 
   //缩略图
-  async JimpImg(target){
+  async JimpImg(target) {
     Jimp.read(target, (err, lenna) => {
       if (err) throw err;
       lenna.resize(200, 200) // resize
-          .quality(60) // set JPEG quality
-          // .greyscale() // set greyscale
-          .write( target + '_200x200' + path.extname(target)); // save
-  });
+        .quality(90) // set JPEG quality
+        // .greyscale() // set greyscale
+        .write(target + '_200x200' + path.extname(target)); // save
+      lenna.resize(400, 400) // resize
+        .quality(90) // set JPEG quality
+        // .greyscale() // set greyscale
+        .write(target + '_400x400' + path.extname(target)); // save
+    });
   }
 }
 

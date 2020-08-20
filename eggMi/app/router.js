@@ -7,9 +7,9 @@ module.exports = app => {
 
   // 后台管理
   require("./routers/admin.js")(app)
-  // 前    端
-  require("./routers/index.js")(app)
-  // a  p  i
+  // 前端
+  require("./routers/default.js")(app)
+  // api
   require("./routers/api.js")(app)
 
 };
