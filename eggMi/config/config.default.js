@@ -43,8 +43,14 @@ module.exports = appInfo => {
 
   // 配置mongoose
   config.mongoose = {
+    // client: {
+    //   url: 'mongodb://egg_mi:803216@127.0.0.1/egg_mi',
+    //   options: {},
+    //   // mongoose global plugins, expected a function or an array of function and options
+    //   // plugins: [createdPlugin, [updatedPlugin, pluginOptions]],
+    // },
     client: {
-      url: 'mongodb://egg_mi:803216@127.0.0.1/egg_mi',
+      url: 'mongodb://mimi:123456@127.0.0.1/mimi',
       options: {},
       // mongoose global plugins, expected a function or an array of function and options
       // plugins: [createdPlugin, [updatedPlugin, pluginOptions]],

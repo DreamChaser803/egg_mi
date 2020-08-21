@@ -17,7 +17,8 @@
                 pagination: {
                     el: '.swiper-pagination',
                     clickable :true
-                }
+                },
+                autoplay: true
                 
             });
         },
@@ -36,6 +37,15 @@
     
     
         app.init();
+
+        $()
+        document.getElementsByTagName('goods').onmouseover = function(){
+            console.log(this)
+                 this.className = "goodsCate"
+        }
+        document.getElementsByTagName('goods').onmouseout  = function(){
+                 this.className = ""
+        }
     })
 
     

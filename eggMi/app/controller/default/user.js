@@ -22,6 +22,7 @@ class UserController extends Controller {
   }
 
   async address(){
+    
     this.ctx.body="收货地址"
 
   }
