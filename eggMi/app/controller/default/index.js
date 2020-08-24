@@ -80,7 +80,6 @@ class IndexController extends Controller {
     }
     //  console.log(middleNav)
 
-
     // 手机
     let shoujiResult = await this.ctx.service.goods.get_category_recommend_goods("5bbf058f9079450a903cb77b","new",8);
 
