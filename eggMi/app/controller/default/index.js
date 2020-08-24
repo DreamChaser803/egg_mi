@@ -1,5 +1,7 @@
 'use strict';
 
+const goods = require('../../model/goods');
+
 const Controller = require('egg').Controller;
 
 class IndexController extends Controller {
@@ -76,12 +78,26 @@ class IndexController extends Controller {
         middleNav[i].subGoods = []
       }
     }
-//  console.log(middleNav)
+    //  console.log(middleNav)
+
+
+    // 手机
+    let shoujiResult = await this.ctx.service.goods.get_category_recommend_goods("5bbf058f9079450a903cb77b","new",8);
+
+    // 电视
+    let dianshiResult = await this.ctx.service.goods.get_category_recommend_goods("5bbf05ac9079450a903cb77c","new",8);
+
+    // 耳机
+    let erjiResult = await this.ctx.service.goods.get_category_recommend_goods("5be8fe279567312f28240be7","new",8);
+
+    // console.log(shoujiResult)
+    
     await this.ctx.render('default/index', {
       topNav: topNav,
       focus: focus,
       goodsCate: goodsCate,
-      middleNav : middleNav
+      middleNav : middleNav,
+      goodsRes : shoujiResult
     });
   }
 }

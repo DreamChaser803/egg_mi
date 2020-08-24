@@ -21,7 +21,7 @@ class GoodsController extends BaseController {
 
     //注意
     let keyword = this.ctx.request.query.keyword;//接收搜索关键字
-    
+
     let json = {};
 
     if (keyword) {
@@ -95,7 +95,8 @@ class GoodsController extends BaseController {
       files = Object.assign(files, {
         [fieldname]: dir.saveDir
       })
-
+      //生成缩略图
+      await this.ctx.service.tools.JimpImg(target)
     }
 
     let formFields = Object.assign(files, parts.field);
@@ -396,6 +397,8 @@ class GoodsController extends BaseController {
         [fieldname]: dir.saveDir
       })
 
+      //生成缩略图
+      await this.ctx.service.tools.JimpImg(target)
     }
 
     let formFields = Object.assign(files, parts.field);
@@ -535,12 +538,18 @@ class GoodsController extends BaseController {
       }
       // console.log('删除文件成功');
     })
-    fs.unlink("app" + deleteResult.img_url + "_200x200" + path.extname(deleteResult.img_url), (err) => {
-      if (err) {
-        console.log(err);
-      }
-      // console.log('删除文件成功');
-    })
+    // 物理删除缩略图
+    for (let i = 0; i < this.config.jimpSize.length; i++) {
+      let w = this.config.jimpSize[i].width;
+      let h = this.config.jimpSize[i].height;
+      fs.unlink("app" + deleteResult.img_url + '_' + w + 'x' + h + path.extname(deleteResult.img_url), (err) => {
+        if (err) {
+          console.log(err);
+        }
+        // console.log('删除文件成功');
+      })
+    }
+
     let result = await this.ctx.model.GoodsImage.deleteOne({ "_id": goods_image_id });            //数据库图片删除地址
 
     if (result) {
