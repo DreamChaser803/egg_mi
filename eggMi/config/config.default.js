@@ -56,6 +56,16 @@ module.exports = appInfo => {
       // plugins: [createdPlugin, [updatedPlugin, pluginOptions]],
     },
   };
+ 
+  //配置redis数据库
+  config.redis = {
+    client: {
+      port: 6379,          // Redis port
+      host: '127.0.0.1',   // Redis host
+      password: '',
+      db: 0,
+    },
+  }
 
   // https://github.com/eggjs/egg-multipart/blob/master/config/config.default.js
   // 配置egg-multipart的参数最大数量
@@ -75,19 +85,19 @@ module.exports = appInfo => {
     }
   }
 
-      //定义缩略图的尺寸
-      exports.jimpSize =[
+  //定义缩略图的尺寸
+  exports.jimpSize = [
 
-        {
-          width:180,
-          height:180
-        },{
-  
-          width:400,
-          height:400
-        }
-        
-      ]
+    {
+      width: 180,
+      height: 180
+    }, {
+
+      width: 400,
+      height: 400
+    }
+
+  ]
 
 
   // add your user config here
