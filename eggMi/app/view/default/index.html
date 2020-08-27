@@ -10,35 +10,35 @@
 				<ul class="clearfix" id="nav_list">
 
 
-				<%for(var i=0;i<middleNav.length;i++){ %>
-						
-
-
-					<li>
-						<a href="#" target="_blank"><%=middleNav[i].title%></a>
-
-						<%if(middleNav[i].subGoods.length != 0) {%>
-					
-							<ol class="children-list clearfix">
-									
-									<%for(var j=0;j<middleNav[i].subGoods.length;j++){ %>
+					<%for(var i=0;i<middleNav.length;i++){ %>
 							
-										<li>
-											<a href="#">
-												<img src="<%=helper.formatImg(middleNav[i].subGoods[j].goods_img,180)%>" />
-												<p><%=middleNav[i].subGoods[j].price%></p>
-											</a>
-										</li>		
-										
-									<%}%>
+
+
+						<li>
+							<a href="#" target="_blank"><%=middleNav[i].title%></a>
+
+							<%if(middleNav[i].subGoods.length>0) {%>
 						
-							</ol>
+								<ol class="children-list clearfix">
+										
+										<%for(var j=0;j<middleNav[i].subGoods.length;j++){ %>
+								
+											<li>
+												<a href="#">
+													<img src="<%=helper.formatImg(middleNav[i].subGoods[j].goods_img,180)%>" />
+													<p><%=middleNav[i].subGoods[j].price%></p>
+												</a>
+											</li>		
+											
+										<%}%>
+							
+								</ol>
 
-						<%}%>
-					
-					</li>
+							<%}%>
+						
+						</li>
 
-				<%} %>
+					<%} %>
 				</ul>
 			</div>
 			<div class="search fr">
@@ -63,19 +63,30 @@
 
 					<%for(var i=0;i<goodsCate.length;i++){ %>
 						<li>
-							<a href="#"><%=goodsCate[i].title%></a>						
+							<a href="/plist?cid=<%=goodsCate[i]._id%>"><%=goodsCate[i].title%></a>						
 							<div class="pop">
 									<ol class="cate_list clear">
 									
 											<%for(var j=0;j<goodsCate[i].items.length;j++){ %>
 												<li>
+
+													<%if(goodsCate[i].items[j].link){%>
 													<div class="xuangou_left">
-														<a href="#">
+														<a href="<%=goodsCate[i].items[j].link%>">
 															<div class="img fl"><img src="<%=goodsCate[i].items[j].cate_img%>" alt="<%=goodsCate[i].items[j].title%>"></div>
 															<span class="fl"><%=goodsCate[i].items[j].title%></span>															
 														</a>
 													</div>
-													
+
+													<%}else{%>
+														<div class="xuangou_left">
+															<a href="/plist?cid=<%=goodsCate[i].items[j]._id%>">
+																<div class="img fl"><img src="<%=goodsCate[i].items[j].cate_img%>" alt="<%=goodsCate[i].items[j].title%>"></div>
+																<span class="fl"><%=goodsCate[i].items[j].title%></span>															
+															</a>
+														</div>
+
+													<%}%>
 												</li>
 											<%}%>
 																	
@@ -151,7 +162,7 @@
 					<div class="jiage">1799元</div>
 				</div>
 				<div class="mingxing fl"> 	
-					<div class="sub_mingxing"><a href=""><img src="/public/default/image/pinpai4.png" alt=""></a></div>
+					<div class="sub_mingxing"><a href=""><img src="/public/default/image/pinpai3.png" alt=""></a></div>
 					<div class="pinpai"><a href="">小米电视3s 55英寸</a></div>
 					<div class="youhui">5月9日，下单立减200元</div>
 					<div class="jiage">3999元</div>
@@ -182,21 +193,24 @@
 
 
 				<div class="category_item_right">
+						
+						<%for(var i=0;i<shoujiResult.length;i++){ %>
+						
 
-								
-					<%for(var i=0;i<goodsRes.length;i++){ %>
-						<div class="hot fl">
-							<div class="xinpin"><span>新品</span></div>
-							<div class="tu"><a href=""><img src="<%=goodsRes[i].goods_img%>"></a></div>
-							<div class="miaoshu"><a href=""><%=goodsRes[i].title%></a></div>
-							<div class="jiage"><%=goodsRes[i].shop_price%></div>
-							<!-- <div class="pingjia">372人评价</div> -->
-							<div class="piao">
-									<span><%=goodsRes[i].sub_title%></span>
-
-							</div>
-					</div>	
-					<%}%>		
+								<div class="hot fl">
+										<div class="xinpin"><span>新品</span></div>
+										<div class="tu"><a href=""><img src="<%=helper.formatImg(shoujiResult[i].goods_img,180)%>"></a></div>
+										<div class="miaoshu"><a href="#"><%=shoujiResult[i].title%></a></div>
+										<div class="jiage"><%=shoujiResult[i].price%>元</div>
+										<!-- <div class="pingjia">372人评价</div> -->
+										<div class="piao">
+											
+												<span><%=shoujiResult[i].sub_title%></span>
+												
+											
+										</div>
+								</div>
+						<%} %>
 							
 				</div>
 			
