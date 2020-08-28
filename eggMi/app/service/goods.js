@@ -13,11 +13,11 @@ class GoodsService extends Service {
 
 
     async get_category_recommend_goods(cate_id, type, limit) {
-        
+
         try {
             let goodsCateResult = await this.ctx.model.GoodsCate.find({ pid: this.app.mongoose.Types.ObjectId(cate_id) }, "_id");
 
-           
+
             let goodsCate_list = [];
             goodsCateResult.forEach((value) => {
                 goodsCate_list.push(
@@ -26,7 +26,7 @@ class GoodsService extends Service {
                     }
                 )
             });
-            
+
             //条件筛选 goods
             let findJson = {
                 $or: goodsCate_list
@@ -46,17 +46,43 @@ class GoodsService extends Service {
                     findJson = Object.assign(findJson, { is_hot: 1 });
                     break;
             }
-  
+
             let limitSize = limit || 10 //没传limit 就默认 10
             let goodsRes = await this.ctx.model.Goods.find(
                 findJson,
                 'title shop_price goods_img sub_title'
             ).limit(limitSize)
-        
+
             return goodsRes
         } catch (error) {
             console.log(error);
             return []
+        }
+    }
+
+    async strToArray(str) {
+        try {
+
+            let tempIds = [];
+
+            if (str) {
+
+                str = str.replace(/，/g, ",").split(",");
+
+                str.forEach((value) => {
+                    tempIds.push(
+                        {
+                            "_id": value
+                        }
+                    )
+                })
+            } else {
+                return [{ "1": 1 }]
+            }
+            return tempIds
+
+        } catch (error) {
+            return [{ "1": 1 }]
         }
     }
 

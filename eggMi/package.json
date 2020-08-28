@@ -16,6 +16,7 @@
     "jimp": "^0.14.0",
     "md5": "^2.2.1",
     "mz-modules": "^2.1.0",
+    "showdown": "^1.9.1",
     "silly-datetime": "^0.1.2",
     "svg-captcha": "^1.4.0"
   },

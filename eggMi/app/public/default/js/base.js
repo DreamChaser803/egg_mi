@@ -30,22 +30,25 @@
                 $(this).find('.children-list').hide(); 
              })          
 
-        }
+        },
+        initContentTabs:function(){
+
+            $('.detail_info .detail_info_item:first').addClass('active');
+			$('.detail_list li:first').addClass('active');				
+			$('.detail_list li').click(function(){
+				var index=$(this).index();		
+				$(this).addClass('active').siblings().removeClass('active');
+				
+				$('.detail_info .detail_info_item').removeClass('active').eq(index).addClass('active');
+				
+			})
+        },
     }   
     
     $(function(){
     
     
         app.init();
-
-        $()
-        document.getElementsByTagName('goods').onmouseover = function(){
-            console.log(this)
-                 this.className = "goodsCate"
-        }
-        document.getElementsByTagName('goods').onmouseout  = function(){
-                 this.className = ""
-        }
     })
 
     
