@@ -44,7 +44,7 @@ header .top .right .gouwuche{margin:0 20px;background: #424242;width: 120px;text
 
 header .top .right .gouwuche:hover{color:#000;background: #666;}
 /*banner_x*/
-.banner_x {width: 1226px;height: 100px;}
+.banner_x {width: 1226px;height: 100px; overflow: hidden;}
 .banner_x .logo{background: url('../image/logo_top.png') no-repeat center center;width: 50px;height: 100px;}
 .banner_x .ad_top{width: 180px;height: 100px;background: url('../image/yyymix.gif') no-repeat center center;}
 .banner_x .nav ul>li{float: left;height: 100px;line-height: 100px; }
@@ -322,9 +322,9 @@ header .top .right .gouwuche:hover{color:#000;background: #666;}
 .xiangqing .neirong nav li a{color: #333;font-size: 14px;}
 .xiangqing .neirong nav li a:hover{color:#ff6700;}
 /*jieshao*/
-.jieshao{height: 560px; }
+.jieshao{min-height: 600px; margin-bottom: 20px; }
 .jieshao .left{width:560px;height:560px;}
-.jieshao .right{width:620px;height: 600px;}
+.jieshao .right{width:620px;}
 .jieshao .right .jianjie{font-size: 14px;color: rgb(176,176,176);line-height: 20px;}
 .jieshao .right .jiage{font-size: 18px;color:#ff6700;font-weight: bold;}
 .jieshao .right .xzbb{height: 58px;line-height:58px;}
@@ -566,6 +566,3 @@ footer{width: 100%;height: 120px;line-height: 30px;text-align: center;font-size:
 	line-height: 2;
 }
 
-.jieshao{
-	height: 600px;
-}

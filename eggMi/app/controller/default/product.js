@@ -42,8 +42,46 @@ class ProductController extends Controller {
     await this.ctx.render(tpl, { goodsRes: goodsRes });
   }
 
-
   async info() {
+    //8、获取更多参数  循环商品属性
+
+    /*
+
+      颜色:红色,白色,黄色 |  尺寸:41,42,43
+
+        [ 
+          
+          { cate: '颜色', list: [ '红色', '白色', '黄色 ' ] },
+          { cate: ' 尺寸', list: [ '41', '42', '43' ] } 
+      
+        ]
+
+      算法：
+
+        var goodsAttr='颜色红色,白色,黄色 | 尺寸a41,42,43';
+      
+        if(goodsAttr&& goodsAttr.indexOf(':')!=-1){    
+            goodsAttr=goodsAttr.replace(/，/g,',');
+            goodsAttr=goodsAttr.replace(/：/g,':');            
+            goodsAttr= goodsAttr.split('|');
+            for( var i=0;i<goodsAttr.length;i++){                
+                if(goodsAttr[i].indexOf(':')!=-1){
+                    goodsAttr[i]={
+                        cate:goodsAttr[i].split(':')[0],
+                        list:goodsAttr[i].split(':')[1].split(',')
+                    };
+                }else{
+                    goodsAttr[i]={}
+                }
+            }
+
+        }else{
+          goodsAttr=[]
+          
+        }
+        console.log(goodsAttr);
+
+    */   
 
     let goodsId = this.ctx.request.query.id; // 获取 goods 的 id 
 
@@ -63,16 +101,37 @@ class ProductController extends Controller {
     //7、获取规格参数信息
     let goodsAttr = await this.ctx.model.GoodsAttr.find({ "goods_id": goodsId });
 
+    // 轮播图片详情
+    let goodsImageResult=await this.ctx.model.GoodsImage.find({"goods_id":goodsId}).limit(8);
 
     await this.ctx.render('default/product_info.html',
       { 
         goodsRes: goodsRes, 
         goods_version: goods_version, 
         goodsColor: goodsColor,
-        goodsAttr : goodsAttr
+        goodsAttr : goodsAttr,
+        goodsImageResult : goodsImageResult
       });
 
   }
+
+  async getImagelist(){
+      try {
+        let goods_id = this.ctx.request.query.goods_id;
+        let color_id = this.ctx.request.query.color_id;
+  
+        var goodsImages = await this.ctx.model.GoodsImage.find({"color_id" : this.app.mongoose.Types.ObjectId(color_id),"goods_id": goods_id}).limit(8);
+        console.log(goodsImages);
+        if(goodsImages.length == 0){
+           var goodsImages = await this.ctx.model.GoodsImage.find({"goods_id" : goods_id}).limit(8);
+        }
+        this.ctx.body = {"success":true,"result":goodsImages};
+      } catch (error) {
+        console.log(error)
+        this.ctx.body = {"success":false,"result": []};
+      }
+  }
+
 }
 
 module.exports = ProductController;

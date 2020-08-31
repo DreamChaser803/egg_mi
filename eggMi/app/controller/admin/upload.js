@@ -12,10 +12,10 @@ const pump = require('mz-modules/pump');
 class UploadController extends BaseController {
 
     async index() {
-        
+
         let uploadResult = await this.ctx.model.Upload.find({});
 
-        await this.ctx.render("admin/upload/index",{list : uploadResult})
+        await this.ctx.render("admin/upload/index", { list: uploadResult })
     }
 
     async add() {
@@ -63,44 +63,44 @@ class UploadController extends BaseController {
 
         let id = this.ctx.request.query.id; // 获取轮播图id
 
-        let editResult = await this.ctx.model.Upload.find({_id : id})
+        let editResult = await this.ctx.model.Upload.find({ _id: id })
 
-        await this.ctx.render("/admin/upload/edit",{list : editResult[0]})
+        await this.ctx.render("/admin/upload/edit", { list: editResult[0] })
     }
 
     async doEdit() {
         let parts = this.ctx.multipart({ autoFields: true });
-        let files = {};               
+        let files = {};
         let stream;
         while ((stream = await parts()) != null) {
-            if (!stream.filename) {          
-              break;
-            }       
+            if (!stream.filename) {
+                break;
+            }
             let fieldname = stream.fieldname;  //file表单的名字
-  
+
             //上传图片的目录
-            let dir=await this.service.tools.getUploadFile(stream.filename);
+            let dir = await this.service.tools.getUploadFile(stream.filename);
             let target = dir.uploadDir;
             let writeStream = fs.createWriteStream(target);
-  
-            await pump(stream, writeStream);  
-  
-            files=Object.assign(files,{
-              [fieldname]:dir.saveDir    
+
+            await pump(stream, writeStream);
+
+            files = Object.assign(files, {
+                [fieldname]: dir.saveDir
             })
-            
-        }      
-  
+
+        }
+
         //修改操作
-  
-        var id=parts.field.id;
-  
-  
-        var updateResult=Object.assign(files,parts.field);
-        
-        await this.ctx.model.Upload.updateOne({"_id":id},updateResult);
-  
-        await this.success('/admin/upload','修改轮播图成功');
+
+        var id = parts.field.id;
+
+
+        var updateResult = Object.assign(files, parts.field);
+
+        await this.ctx.model.Upload.updateOne({ "_id": id }, updateResult);
+
+        await this.success('/admin/upload', '修改轮播图成功');
     }
 
 

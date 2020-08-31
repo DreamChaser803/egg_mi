@@ -46,7 +46,6 @@ class ToolsService extends Service {
   async getTime() {
 
     var d = new Date();
-
     return d.getTime();
 
   }
@@ -55,23 +54,13 @@ class ToolsService extends Service {
   async getUploadFile(filename) {
 
     // 1、获取当前日期     20180920
-
     let day = sd.format(new Date(), 'YYYYMMDD');
-
     //2、创建图片保存的路径
-
     let dir = path.join(this.config.uploadDir, day);
-
     await mkdirp(dir);
-
     let d = await this.getTime();   /*毫秒数*/
-
-
     //返回图片保存的路径
-
     let uploadDir = path.join(dir, d + path.extname(filename)); //文件后缀名
-
-
     // app\public\admin\upload\20180914\1536895331444.png
     return {
       uploadDir: uploadDir,
@@ -94,7 +83,7 @@ class ToolsService extends Service {
         lenna.resize(w, h) // resize
           .quality(90) // set JPEG quality
           // .greyscale() // set greyscale
-          .write(target + '_'+ w + 'x' + h + path.extname(target)); // save
+          .write(target + '_' + w + 'x' + h + path.extname(target)); // save
       }
     });
   }

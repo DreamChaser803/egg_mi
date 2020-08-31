@@ -22,7 +22,6 @@ class AdminService extends Service {
         let role_id = userInfo.role_id;
         // 3,获取当前访问的路由url
         let pathname = url.parse(this.ctx.request.url).pathname
-
         // 4,忽略权限判断的地址    is_super表示是管理员is_super == 1 是超级管理员拥有所有权限
         let ignoreUrl = ["/admin/login", "/admin/dologin", "/admin/loginOut", "/admin/verify","/admin","/admin/welcome"]
         if (ignoreUrl.indexOf(pathname) != -1 || userInfo.is_super == 1) {
@@ -40,14 +39,12 @@ class AdminService extends Service {
             accessArray.push(value.access_id.toString());
         })
 
-
         //查询当前访问的url
         let accessUrlResult = await this.ctx.model.Access.find(
             {
                 url: pathname
             }
         )
-        // console.log(accessUrlResult)
         
         // 是否存在这个权限
         if (accessUrlResult.length > 0) {

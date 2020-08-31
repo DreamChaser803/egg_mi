@@ -72,7 +72,7 @@ class GoodsService extends Service {
                 str.forEach((value) => {
                     tempIds.push(
                         {
-                            "_id": value
+                            "_id": this.app.mongoose.Types.ObjectId(value)   
                         }
                     )
                 })

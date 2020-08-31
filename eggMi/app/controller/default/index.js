@@ -3,10 +3,17 @@
 const Controller = require('egg').Controller;
 
 class IndexController extends Controller {
+
+
+  /*
+  不可拓展属性的对象    http://bbs.itying.com/topic/5bea72c10e525017c44947cf
+*/
+
+
   //首页
   async index() {
 
-    console.time("index")
+    // console.time("index")
 
     //获取首页轮播图
     let focus = await this.ctx.service.cache.get("index_focus");
@@ -14,13 +21,6 @@ class IndexController extends Controller {
       focus = await this.ctx.model.Upload.find({});
       await this.ctx.service.cache.set("index_focus", focus, 60 * 60);
     }
-
-    
-
-    /*
-      不可拓展属性的对象    http://bbs.itying.com/topic/5bea72c10e525017c44947cf
-    */
-
 
     // 手机
     let shoujiResult = await this.ctx.service.cache.get("index_shoujiResult");
@@ -36,7 +36,7 @@ class IndexController extends Controller {
     let erjiResult = await this.ctx.service.goods.get_category_recommend_goods("5be8fe279567312f28240be7", "new", 8);
 
 
-    console.timeEnd("index")
+    // console.timeEnd("index")
     await this.ctx.render('default/index', {
       focus: focus,
       shoujiResult: shoujiResult

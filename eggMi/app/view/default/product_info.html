@@ -7,25 +7,17 @@
 
 
 <!-- xiangqing -->
-
-
-
 <div class="jieshao mt20 w">
 	<div class="left fl">
 
 
 		<div class="swiper-container">
-			<div class="swiper-wrapper">
+			<div class="swiper-wrapper" id="swiper-wrapper">
+				<%for(let i = 0; i < goodsImageResult.length; i++){%>
 				<div class="swiper-slide">
-
-					<img src="/public/default/image/liebiao_xiaomi6.jpg">
+					<img src="<%=goodsImageResult[i].img_url%>">
 				</div>
-				<div class="swiper-slide">
-					<img src="/public/default/image/liebiao_xiaomi6.jpg">
-				</div>
-				<div class="swiper-slide">
-					<img src="/public/default/image/liebiao_xiaomi6.jpg">
-				</div>
+				<%}%>
 			</div>
 
 			<div class="swiper-pagination"></div>
@@ -41,210 +33,219 @@
 	</div>
 	<div class="right fr">
 		<div class="h3 ml20 mt20"><%= goodsRes.title%></div>
-		<div class="jianjie mr40 ml20 mt10"><%=goodsRes.sub_title%></div>
-		<div class="jiage ml20 mt10"><%=goodsRes.shop_price%>元</div>
+			<div class="jianjie mr40 ml20 mt10"><%=goodsRes.sub_title%></div>
+			<div class="jiage ml20 mt10"><%=goodsRes.shop_price%>元</div>
 
-		<%if(goods_version.length>0){%>
+			<%if(goods_version.length>0){%>
 
-		<div class="ft20 ml20 mt20">选择版本</div>
-		<div class="xzbb ml20 mt10 clearfix">
-			<%for(let i = 0; i < goods_version.length; i++){%>
-			<div class="banben fl <%if(goodsRes._id.toString()==goods_version[i]._id.toString()){%>active <%}%>" >
+			<div class="ft20 ml20 mt20">选择版本</div>
+			<div class="xzbb ml20 mt10 clearfix">
+				<%for(let i = 0; i < goods_version.length; i++){%>
+				<div class="banben fl <%if(goodsRes._id.toString()==goods_version[i]._id.toString()){%>active <%}%>" >
 					<a href="/pinfo?id=<%=goods_version[i]._id%>">
-				<span><%=goods_version[i].goods_version%></span>
-				<span><%=goods_version[i].shop_price%></span>
-				<span>2499元</span>
-				</a>
-			</div>
-			<%}%>
+					<span><%=goods_version[i].goods_version%></span>
+					<span><%=goods_version[i].shop_price%></span>
+					<span>2499元</span>
+					</a>
+				</div>
+				<%}%>
 
 				<div class="clear"></div>
 			</div>
 
 			<%}%>
 
-			<%if(goods_version.length>0){%>
+				<%if(goods_version.length>0){%>
 
-			<div class="ft20 ml20 mt20 clear">选择颜色</div>
-			<div class="xzbb ml20 mt10 clearfix">
-				<%for(let i = 0; i < goodsColor.length; i++){%>
-				<div class="banben fl">
-					<a>
-						<span class="yuandian" style="background:<%=goodsColor[i].color_value%>"></span>
-						<span class="yanse"><%=goodsColor[i].color_name%></span>
-					</a>
-				</div>
-				<%}%>
+				<div class="ft20 ml20 mt20 clear">选择颜色</div>
+				<div class="xzbb ml20 mt10 clearfix" id="color_list">
+					<%for(let i = 0; i < goodsColor.length; i++){%>
+					<div class="banben fl <%if(i==0){%>active <%}%>"" goods_id="<%=goodsRes._id%>"
+						color_id="<%=goodsColor[i]._id%>">
+						<a>
+							<span class="yuandian" style="background:<%=goodsColor[i].color_value%>"></span>
+							<span class="yanse"><%=goodsColor[i].color_name%></span>
+						</a>
+					</div>
+					<%}%>
 				
 			</div>
 			<%}%>
-				<div class="xqxq mt20 ml20 clear">
-					<div class="top1 mt10">
-						<div class="left1 fl">小米6 全网通版 6GB内存 64GB 亮黑色</div>
-						<div class="right1 fr">2499.00元</div>
-						<div class="clear"></div>
+					<div class="xqxq mt20 ml20 clear">
+						<div class="top1 mt10">
+							<div class="left1 fl">小米6 全网通版 6GB内存 64GB 亮黑色</div>
+							<div class="right1 fr">2499.00元</div>
+							<div class="clear"></div>
+						</div>
+						<div class="bot mt20 ft20 ftbc">总计：2499元</div>
 					</div>
-					<div class="bot mt20 ft20 ftbc">总计：2499元</div>
+					<div class="xiadan ml20 mt20">
+						<input class="jrgwc" type="button" name="addCart" id="addCart" value="加入购物车" />
+
+					</div>
 				</div>
-				<div class="xiadan ml20 mt20">
-					<input class="jrgwc" type="button" name="jrgwc" value="加入购物车" />
-
-
-
-				</div>
+				<div class="clear"></div>
 			</div>
-			<div class="clear"></div>
-		</div>
+			<script>
+
+				$(function () {
+					$("#addCart").click(function () {
+						var goods_id = $("#color_list .active").attr("goods_id");
+						var color_id = $("#color_list .active").attr("color_id");
+
+						location.href = "/addCart?goods_id=" + goods_id + '&color_id=' + color_id;
+					})
+				})
+			</script>
+
+
+			<style>
+				/*商品详情*/
+				.container {
+					width: 1226px;
+
+					margin: 0 auto;
+				}
+
+				/*详情左侧*/
+				.c_left {
+
+					width: 236px;
+					float: left;
+					margin-right: 20px;
+
+					border: 1px solid #eee;
+				}
+
+				.c_left h2 {
+					background: #eee;
+					height: 44px;
+					line-height: 44px;
+
+					font-size: 20px;
+
+					text-align: center;
+				}
+
+				.c_left .item {
+					width: 216px;
+					text-align: center;
+					margin: 0 auto;
+					padding: 10px;
+
+				}
+
+				.c_left .item img {
+					width: 200px;
+
+				}
+
+				.c_left .item p {
+					font-size: 14px;
+				}
 
 
 
-		<style>
-			/*商品详情*/
-			.container {
-				width: 1226px;
 
-				margin: 0 auto;
-			}
+				/*详情右侧*/
+				.c_right {
 
-			/*详情左侧*/
-			.c_left {
+					width: 966px;
+					float: right;
 
-				width: 236px;
-				float: left;
-				margin-right: 20px;
+				}
 
-				border: 1px solid #eee;
-			}
+				.c_right .detail_list {
+					width: 100%;
+					border-top: 1px solid #eee;
+					border-bottom: 1px solid #eee;
 
-			.c_left h2 {
-				background: #eee;
-				height: 44px;
-				line-height: 44px;
+				}
 
-				font-size: 20px;
+				.c_right .detail_list li {
+					/* width: 190px; */
+					height: 60px;
+					line-height: 60px;
+					display: inline-block;
+					text-align: center;
+					cursor: pointer;
 
-				text-align: center;
-			}
+				}
 
-			.c_left .item {
-				width: 216px;
-				text-align: center;
-				margin: 0 auto;
-				padding: 10px;
+				.c_right .detail_list li.active {
+					color: red;
+				}
 
-			}
+				.c_right .detail_list li::after {
+					color: #DCDCDC;
+					content: '/';
 
-			.c_left .item img {
-				width: 200px;
+					padding: 0 20px;
+				}
 
-			}
-
-			.c_left .item p {
-				font-size: 14px;
-			}
+				.c_right .detail_list li:last-child::after {
+					content: '';
+				}
 
 
+				.c_right .detail_info {
 
 
-			/*详情右侧*/
-			.c_right {
+					margin: 0 auto;
 
-				width: 966px;
-				float: right;
+					padding: 10px;
+				}
 
-			}
+				.c_right .detail_info .detail_info_item {
+					display: none;
+				}
 
-			.c_right .detail_list {
-				width: 100%;
-				border-top: 1px solid #eee;
-				border-bottom: 1px solid #eee;
-
-			}
-
-			.c_right .detail_list li {
-				/* width: 190px; */
-				height: 60px;
-				line-height: 60px;
-				display: inline-block;
-				text-align: center;
-				cursor: pointer;
-
-			}
-
-			.c_right .detail_list li.active {
-				color: red;
-			}
-
-			.c_right .detail_list li::after {
-				color: #DCDCDC;
-				content: '/';
-
-				padding: 0 20px;
-			}
-
-			.c_right .detail_list li:last-child::after {
-				content: '';
-			}
+				.detail_info .detail_info_item.active {
+					display: block;
+				}
 
 
-			.c_right .detail_info {
+				.detail_info .detail_info_item .row {
+
+					padding: 20px 0px;
 
 
-				margin: 0 auto;
+				}
 
-				padding: 10px;
-			}
+				.detail_info .detail_info_item .span5 {
 
-			.c_right .detail_info .detail_info_item {
-				display: none;
-			}
+					width: 200px;
+					float: left;
 
-			.detail_info .detail_info_item.active {
-				display: block;
-			}
+				}
 
-
-			.detail_info .detail_info_item .row {
-
-				padding: 20px 0px;
+				.detail_info .detail_info_item .span15 {
+					width: 740px;
+					float: left;
+					line-height: 2;
+				}
 
 
-			}
+				/*商品评论列表*/
 
-			.detail_info .detail_info_item .span5 {
+				.comment_list li {
+					margin: 20px 0px;
 
-				width: 200px;
-				float: left;
+					border-bottom: 1px solid #eee;
 
-			}
+					padding: 10px;
 
-			.detail_info .detail_info_item .span15 {
-				width: 740px;
-				float: left;
-				line-height: 2;
-			}
+					font-size: 14px;
+					line-height: 2;
+				}
 
+				.jieshao {
+					height: 600px;
+				}
+			</style>
 
-			/*商品评论列表*/
+			<script>
 
-			.comment_list li {
-				margin: 20px 0px;
-
-				border-bottom: 1px solid #eee;
-
-				padding: 10px;
-
-				font-size: 14px;
-				line-height: 2;
-			}
-
-			.jieshao {
-				height: 600px;
-			}
-		</style>
-
-		<script>
-			$(function () {
 				$('.detail_info .detail_info_item:first').addClass('active');
 				$('.detail_list li:first').addClass('active');
 				$('.detail_list li').click(function () {
@@ -255,175 +256,174 @@
 
 				})
 
-			})	
-		</script>
-		<div class="container clearfix">
+			</script>
+			<div class="container clearfix">
 
 
-			<div class="c_left">
+				<div class="c_left">
 
-				<h2>看了又看</h2>
+					<h2>看了又看</h2>
 
-				<div class="item">
+					<div class="item">
 
-					<a target="_blank" href="#">
+						<a target="_blank" href="#">
 
-						<img
-							src="//img10.360buyimg.com/N1/jfs/t24550/324/210570328/559386/cc08975f/5b2910bbNfaceb0b4.jpg" />
+							<img
+								src="//img10.360buyimg.com/N1/jfs/t24550/324/210570328/559386/cc08975f/5b2910bbNfaceb0b4.jpg" />
 
-						<p class="price recommendLookPrice4183081">￥31.90</p>
+							<p class="price recommendLookPrice4183081">￥31.90</p>
 
-						<p>三利 纯棉A类标准简约素雅大浴巾 70×140cm 男女同款 柔软舒适吸水裹身巾 豆绿</p>
+							<p>三利 纯棉A类标准简约素雅大浴巾 70×140cm 男女同款 柔软舒适吸水裹身巾 豆绿</p>
 
-					</a>
-
-
-				</div>
-				<div class="item">
-
-					<a target="_blank" href="#">
-
-						<img
-							src="//img10.360buyimg.com/N1/jfs/t24550/324/210570328/559386/cc08975f/5b2910bbNfaceb0b4.jpg" />
-
-						<p class="price recommendLookPrice4183081">￥31.90</p>
-
-						<p>三利 纯棉A类标准简约素雅大浴巾 70×140cm 男女同款 柔软舒适吸水裹身巾 豆绿</p>
-
-					</a>
+						</a>
 
 
-				</div>
-				<div class="item">
-
-					<a target="_blank" href="#">
-
-						<img
-							src="//img10.360buyimg.com/N1/jfs/t24550/324/210570328/559386/cc08975f/5b2910bbNfaceb0b4.jpg" />
-
-						<p class="price recommendLookPrice4183081">￥31.90</p>
-
-						<p>三利 纯棉A类标准简约素雅大浴巾 70×140cm 男女同款 柔软舒适吸水裹身巾 豆绿</p>
-
-					</a>
-
-
-				</div>
-			</div>
-
-
-			<div class="c_right">
-				<ul class="detail_list clearfix">
-
-					<li class="">详情描述</li>
-
-					<li class="">规格参数</li>
-
-					<li class="">用户评价</li>
-				</ul>
-
-
-				<div class="detail_info">
-
-					<div class="detail_info_item">
-
-						<!-- 详情描述 -->
-						<%-goodsRes.goods_content%>
 					</div>
-					<div class="detail_info_item">
-						<ul>
+					<div class="item">
+
+						<a target="_blank" href="#">
+
+							<img
+								src="//img10.360buyimg.com/N1/jfs/t24550/324/210570328/559386/cc08975f/5b2910bbNfaceb0b4.jpg" />
+
+							<p class="price recommendLookPrice4183081">￥31.90</p>
+
+							<p>三利 纯棉A类标准简约素雅大浴巾 70×140cm 男女同款 柔软舒适吸水裹身巾 豆绿</p>
+
+						</a>
 
 
-						<%for(var i=0;i<goodsAttr.length;i++){%>
+					</div>
+					<div class="item">
+
+						<a target="_blank" href="#">
+
+							<img
+								src="//img10.360buyimg.com/N1/jfs/t24550/324/210570328/559386/cc08975f/5b2910bbNfaceb0b4.jpg" />
+
+							<p class="price recommendLookPrice4183081">￥31.90</p>
+
+							<p>三利 纯棉A类标准简约素雅大浴巾 70×140cm 男女同款 柔软舒适吸水裹身巾 豆绿</p>
+
+						</a>
 
 
-							<%if(goodsAttr[i].attribute_value){%>
-							<li class="row clearfix">
+					</div>
+				</div>
 
-								<div class="span5">
 
-									<h2><%=goodsAttr[i].attribute_title%></h2>
-								</div>
+				<div class="c_right">
+					<ul class="detail_list clearfix">
 
-								<div class="span15">
-									<%-helper.formatAttr(goodsAttr[i].attribute_value)%>
-								</div>
+						<li class="">详情描述</li>
 
-							</li>
+						<li class="">规格参数</li>
 
-							<%}%>
+						<li class="">用户评价</li>
+					</ul>
+
+
+					<div class="detail_info">
+
+						<div class="detail_info_item">
+
+							<!-- 详情描述 -->
+							<%-goodsRes.goods_content%>
+						</div>
+						<div class="detail_info_item">
+							<ul>
+
+
+								<%for(var i=0;i<goodsAttr.length;i++){%>
+
+
+								<%if(goodsAttr[i].attribute_value){%>
+								<li class="row clearfix">
+
+									<div class="span5">
+
+										<h2><%=goodsAttr[i].attribute_title%></h2>
+									</div>
+
+									<div class="span15">
+										<%-helper.formatAttr(goodsAttr[i].attribute_value)%>
+									</div>
+
+								</li>
+
+								<%}%>
 			
 						 <%}%>
 
-						</ul>
+							</ul>
+						</div>
+
+
+						<div class="detail_info_item">
+							<ul class="comment_list">
+								<li>
+									<div>
+										<img src="//static.i360mall.com/mall/images/eval-stars.png">
+									</div>
+									<p>这已经是第六部了，一如既往地好用。美中不足得是，尾插和数据线的链接口，用过一段时间，就会有充电接触不良的问题，希望厂家将来有改进。</p>
+
+									<p class="eval-order-info"> <span class="eval-time">2018-11-18
+											14:00:35</span><span>月岩白</span><span>6GB+64GB</span><span></span></p>
+
+								</li>
+								<li>
+									<div>
+										<img src="//static.i360mall.com/mall/images/eval-stars.png">
+									</div>
+									<p>这已经是第六部了，一如既往地好用。美中不足得是，尾插和数据线的链接口，用过一段时间，就会有充电接触不良的问题，希望厂家将来有改进。</p>
+
+									<p class="eval-order-info"> <span class="eval-time">2018-11-18
+											14:00:35</span><span>月岩白</span><span>6GB+64GB</span><span></span></p>
+
+								</li>
+								<li>
+									<div>
+										<img src="//static.i360mall.com/mall/images/eval-stars.png">
+									</div>
+									<p>这已经是第六部了，一如既往地好用。美中不足得是，尾插和数据线的链接口，用过一段时间，就会有充电接触不良的问题，希望厂家将来有改进。</p>
+
+									<p class="eval-order-info"> <span class="eval-time">2018-11-18
+											14:00:35</span><span>月岩白</span><span>6GB+64GB</span><span></span></p>
+
+								</li>
+								<li>
+									<div>
+										<img src="//static.i360mall.com/mall/images/eval-stars.png">
+									</div>
+									<p>这已经是第六部了，一如既往地好用。美中不足得是，尾插和数据线的链接口，用过一段时间，就会有充电接触不良的问题，希望厂家将来有改进。</p>
+
+									<p class="eval-order-info"> <span class="eval-time">2018-11-18
+											14:00:35</span><span>月岩白</span><span>6GB+64GB</span><span></span></p>
+
+								</li>
+							</ul>
+						</div>
+
+
 					</div>
-
-
-					<div class="detail_info_item">
-						<ul class="comment_list">
-							<li>
-								<div>
-									<img src="//static.i360mall.com/mall/images/eval-stars.png">
-								</div>
-								<p>这已经是第六部了，一如既往地好用。美中不足得是，尾插和数据线的链接口，用过一段时间，就会有充电接触不良的问题，希望厂家将来有改进。</p>
-
-								<p class="eval-order-info"> <span class="eval-time">2018-11-18
-										14:00:35</span><span>月岩白</span><span>6GB+64GB</span><span></span></p>
-
-							</li>
-							<li>
-								<div>
-									<img src="//static.i360mall.com/mall/images/eval-stars.png">
-								</div>
-								<p>这已经是第六部了，一如既往地好用。美中不足得是，尾插和数据线的链接口，用过一段时间，就会有充电接触不良的问题，希望厂家将来有改进。</p>
-
-								<p class="eval-order-info"> <span class="eval-time">2018-11-18
-										14:00:35</span><span>月岩白</span><span>6GB+64GB</span><span></span></p>
-
-							</li>
-							<li>
-								<div>
-									<img src="//static.i360mall.com/mall/images/eval-stars.png">
-								</div>
-								<p>这已经是第六部了，一如既往地好用。美中不足得是，尾插和数据线的链接口，用过一段时间，就会有充电接触不良的问题，希望厂家将来有改进。</p>
-
-								<p class="eval-order-info"> <span class="eval-time">2018-11-18
-										14:00:35</span><span>月岩白</span><span>6GB+64GB</span><span></span></p>
-
-							</li>
-							<li>
-								<div>
-									<img src="//static.i360mall.com/mall/images/eval-stars.png">
-								</div>
-								<p>这已经是第六部了，一如既往地好用。美中不足得是，尾插和数据线的链接口，用过一段时间，就会有充电接触不良的问题，希望厂家将来有改进。</p>
-
-								<p class="eval-order-info"> <span class="eval-time">2018-11-18
-										14:00:35</span><span>月岩白</span><span>6GB+64GB</span><span></span></p>
-
-							</li>
-						</ul>
-					</div>
-
 
 				</div>
 
+
+
 			</div>
+			<script>
 
+			</script>
+			<!-- footer -->
+			<footer class="mt20 center">
 
+				<div class="mt20">小米商城|MIUI|米聊|多看书城|小米路由器|视频电话|小米天猫店|小米淘宝直营店|小米网盟|小米移动|隐私政策|Select Region</div>
+				<div>©mi.com 京ICP证110507号 京ICP备10046444号 京公网安备11010802020134号 京网文[2014]0059-0009号</div>
+				<div>违法和不良信息举报电话：185-0130-1238，本网站所列数据，除特殊说明，所有数据均出自我司实验室测试</div>
 
-		</div>
+			</footer>
 
+			</body>
 
-
-		<!-- footer -->
-		<footer class="mt20 center">
-
-			<div class="mt20">小米商城|MIUI|米聊|多看书城|小米路由器|视频电话|小米天猫店|小米淘宝直营店|小米网盟|小米移动|隐私政策|Select Region</div>
-			<div>©mi.com 京ICP证110507号 京ICP备10046444号 京公网安备11010802020134号 京网文[2014]0059-0009号</div>
-			<div>违法和不良信息举报电话：185-0130-1238，本网站所列数据，除特殊说明，所有数据均出自我司实验室测试</div>
-
-		</footer>
-
-		</body>
-
-		</html>
+			</html>
