@@ -16,8 +16,6 @@ module.exports = app => {
 
   router.get('/getImagelist', initMiddleware, controller.default.product.getImagelist);
 
-  router.get('/cart', initMiddleware, controller.default.flow.cart);
-
 
   //用户中心
   router.get('/login', controller.default.user.login);
@@ -30,7 +28,20 @@ module.exports = app => {
 
 
   //购物车
-  router.get('/addCart', controller.default.cart.addCart);
+  router.get('/addCart',initMiddleware, controller.default.cart.addCart);
 
-  router.get('/cartList', controller.default.cart.cartList);
+  router.get('/cart',initMiddleware, controller.default.cart.cartList);
+
+  router.get('/addCartSuccess', initMiddleware,controller.default.cart.addCartSuccess);
+
+  router.get('/incCart', initMiddleware,controller.default.cart.incCart);
+  
+  router.get('/decCart', initMiddleware,controller.default.cart.decCart);
+  
+  router.get('/changeOneCart', initMiddleware,controller.default.cart.changeOneCart);
+
+  router.get('/changeAllCart', initMiddleware,controller.default.cart.changeAllCart);
+
+  router.get('/removeCart', initMiddleware,controller.default.cart.removeCart);
+
 };
