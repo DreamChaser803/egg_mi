@@ -30,7 +30,7 @@ class BaseController extends Controller {
     async verify() {
 
         let captcha = await this.service.tools.index() // 调用服务里面的方法
-
+        this.ctx.session.code = captcha.text; /*验证码上面的信息*/
         this.ctx.response.type = 'image/svg+xml';// 指定返回指定的数据类型
 
         this.ctx.body = captcha.data;// 给页面返回一张图片

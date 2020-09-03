@@ -29,9 +29,6 @@ class ToolsService extends Service {
         height: 40,
         // background: "#cc9966"
       });
-
-    this.ctx.session.code = captcha.text; /*验证码上面的信息*/
-
     return captcha;
   }
 
@@ -87,6 +84,24 @@ class ToolsService extends Service {
       }
     });
   }
+
+  // 手机验证码
+  async getRandomNum(){
+    var random_str='';
+    for(var i=0;i<4;i++){
+        random_str+= Math.floor(Math.random()*10);
+    }
+    return random_str;
+}
+
+// 获取年月日
+async getDay(){
+
+  var day=sd.format(new Date(), 'YYYYMMDD');
+
+  return day;
+}
+
 }
 
 module.exports = ToolsService;
