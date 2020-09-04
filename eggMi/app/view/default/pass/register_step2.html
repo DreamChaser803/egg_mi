@@ -53,8 +53,6 @@
 
 			<script>
 
-				$(function () {
-
 					var timer = 10;
 					function Countdown() {
 						if (timer >= 1) {
@@ -75,11 +73,11 @@
 
 
 
-					$("#sendCode").click(function () {
+					// $("#sendCode").click(function () {
 
-						Countdown();
-						alert('重新发送');
-					})
+					// 	Countdown();
+					// 	alert('重新发送');
+					// })
 
 
 					//重新发送验证码
@@ -111,14 +109,12 @@
 							console.log(response)
 							// 验证他人通过tiao转第三步
 							if (response.success == true) {
-								location.href = "/register/registerStep3?sign=" + response.sign;
+								location.href="/register/registerStep3?sign="+response.sign+'&phone_code='+phone_code;
 							} else {
 								alert(response.msg);
 							}
 						})
 					})
-
-				})
 
 			</script>
 

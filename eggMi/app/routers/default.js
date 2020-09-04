@@ -48,6 +48,10 @@ module.exports = app => {
   //用户注册登录
   router.get('/login', initMiddleware, controller.default.pass.login);
 
+  router.post('/pass/doLogin', initMiddleware,controller.default.pass.doLogin);
+
+  router.get('/pass/loginOut', initMiddleware,controller.default.pass.loginOut);
+
   router.get('/register/registerStep1', initMiddleware, controller.default.pass.registerStep1);
 
   router.get('/register/registerStep2', initMiddleware, controller.default.pass.registerStep2);
@@ -57,6 +61,8 @@ module.exports = app => {
   router.get('/pass/sendCode', initMiddleware, controller.default.pass.sendCode);
 
   router.get('/pass/validatePhoneCode', initMiddleware,controller.default.pass.validatePhoneCode);
+
+  router.post('/pass/doRegister', initMiddleware,controller.default.pass.doRegister);
 
 
   //验证码

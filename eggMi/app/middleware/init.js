@@ -4,6 +4,12 @@ module.exports = (options, app) => {
 
     //登入鉴权
     return async (ctx, next) => {
+
+        ctx.state.csrf = ctx.csrf;   //全局变量
+
+        //获取用户信息
+        ctx.state.userinfo = ctx.service.cookies.get('userinfo');
+
         //获取导航的数据上
         let topNav = await ctx.service.cache.get("index_topNav");
         if (!topNav) {

@@ -91,7 +91,7 @@ class CartController extends Controller {
         }
 
     }
-
+    // goods +
     async incCart() {
 
         var goods_id = this.ctx.request.query.goods_id;
@@ -124,7 +124,7 @@ class CartController extends Controller {
         }
 
     }
-
+    // goods -
     async decCart() {
         var goods_id = this.ctx.request.query.goods_id;
         var color = this.ctx.request.query.color;
@@ -157,7 +157,7 @@ class CartController extends Controller {
 
     }
 
-    //改变购物车商品的状态  
+    //改变购物车商品的状态  单选
     async changeOneCart() {
 
         var goods_id = this.ctx.request.query.goods_id;
@@ -193,7 +193,7 @@ class CartController extends Controller {
 
     }
 
-    //改变所有购物车商品的状态  
+    //改变所有购物车商品的状态  全选
     async changeAllCart() {
         var type = this.ctx.request.query.type;
         var cartList = this.service.cookies.get('cartList');
@@ -218,7 +218,7 @@ class CartController extends Controller {
         }
 
     }
-
+    //删除 goods_cart
     async removeCart() {
 
         var goods_id = this.ctx.request.query.goods_id;
@@ -246,7 +246,7 @@ class CartController extends Controller {
 
 
     }
-
+    //所有cart goods
     async cartList() {
 
         var cartList = this.ctx.service.cookies.get("cartList");
