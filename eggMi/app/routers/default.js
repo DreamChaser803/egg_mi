@@ -6,7 +6,10 @@
 module.exports = app => {
   const { router, controller } = app;
 
+  //中间件
   let initMiddleware = app.middleware.init({}, app)
+  const userauthMiddleware = app.middleware.userauth({}, app);
+
 
   router.get('/', initMiddleware, controller.default.index.index);
 
@@ -48,9 +51,9 @@ module.exports = app => {
   //用户注册登录
   router.get('/login', initMiddleware, controller.default.pass.login);
 
-  router.post('/pass/doLogin', initMiddleware,controller.default.pass.doLogin);
+  router.post('/pass/doLogin', initMiddleware, controller.default.pass.doLogin);
 
-  router.get('/pass/loginOut', initMiddleware,controller.default.pass.loginOut);
+  router.get('/pass/loginOut', initMiddleware, controller.default.pass.loginOut);
 
   router.get('/register/registerStep1', initMiddleware, controller.default.pass.registerStep1);
 
@@ -60,12 +63,28 @@ module.exports = app => {
 
   router.get('/pass/sendCode', initMiddleware, controller.default.pass.sendCode);
 
-  router.get('/pass/validatePhoneCode', initMiddleware,controller.default.pass.validatePhoneCode);
+  router.get('/pass/validatePhoneCode', initMiddleware, controller.default.pass.validatePhoneCode);
 
-  router.post('/pass/doRegister', initMiddleware,controller.default.pass.doRegister);
+  router.post('/pass/doRegister', initMiddleware, controller.default.pass.doRegister);
 
 
   //验证码
   router.get('/verify', initMiddleware, controller.default.base.verify);
+
+
+  //去结算
+  router.get('/buy/checkout', initMiddleware, userauthMiddleware,controller.default.buy.checkout);
+
+
+  // address   收货地址（api接口）
+  router.post('/user/addAddress', initMiddleware, userauthMiddleware, controller.default.address.addAddress);
+
+  router.get('/user/getAddressList', initMiddleware, userauthMiddleware, controller.default.address.getAddressList);
+
+  router.get('/user/getOneAddressList', initMiddleware, userauthMiddleware, controller.default.address.getOneAddressList);
+
+  router.get('/user/changeDefaultAddress', initMiddleware, userauthMiddleware, controller.default.address.changeDefaultAddress);
+
+  router.post('/user/editOneAddressList', initMiddleware, userauthMiddleware, controller.default.address.editOneAddressList);
 
 };

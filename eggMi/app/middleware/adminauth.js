@@ -14,7 +14,7 @@ module.exports = (options, app) => {
            1, 用户没有登入跳转到登入页面
            2, 只有登入才能访问后台管理系统
         */
-
+       
         // 设置全局变量
         ctx.state.csrf = ctx.csrf //post请求csrf验证
         ctx.state.prevPage = ctx.request.headers['referer'];   //上一页的地址

@@ -56,7 +56,7 @@ class PassController extends Controller {
   //退出登录
   async loginOut() {
     
-    this.service.cookies.set('userinfo','');
+    this.ctx.service.cookies.set('userinfo','');
     
     this.ctx.redirect('/');
 
