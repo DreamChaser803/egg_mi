@@ -15,39 +15,41 @@
 	<div class="wdgwc fl ml40">确认订单 </div>
 </div>
 
+<form action="/buy/doOrder?_csrf=<%=csrf%>" method="POST" id="checkoutForm" >
+	<input type="hidden" name="orderSign" value="<%=orderSign%>">
 
-<div class="checkout-box">
-	<div class="section section-address">
-		<div class="section-header clearfix">
-			<h3 class="title">收货地址</h3>
+	<div class="checkout-box">
+		<div class="section section-address">
+			<div class="section-header clearfix">
+				<h3 class="title">收货地址</h3>
 
-			<div class="more">
-			</div>
-
-			<div class="mitv-tips hide" style="margin-left: 0;border: none;" id="J_bigproPostTip"></div>
-
-		</div>
-		<div class="section-body clearfix" id="J_addressList">
-			<!-- addresslist begin -->
-
-			<div id="addressList">
-
-				<%for(var i=0;i<addressList.length;i++){%>
-
-				<div
-					class="address-item J_addressItem  <%if(addressList[i].default_address){%>selected <%}%>" data-id="<%=addressList[i]._id%>">
-
-					<dl>
-						<dt> <em class="uname"><%=addressList[i].name%></em> </dt>
-						<dd class="utel"><%=addressList[i].phone%></dd>
-						<dd class="uaddress"> <%=addressList[i].address%> </dd>
-					</dl>
-
-					<div class="actions" data-id="<%=addressList[i]._id%>">
-						<a href="javascript:void(0);" class="modify addressModify">修改</a>
-					</div>
+				<div class="more">
 				</div>
-				<%}%>
+
+				<div class="mitv-tips hide" style="margin-left: 0;border: none;" id="J_bigproPostTip"></div>
+
+			</div>
+			<div class="section-body clearfix" id="J_addressList">
+				<!-- addresslist begin -->
+
+				<div id="addressList">
+
+					<%for(var i=0;i<addressList.length;i++){%>
+
+					<div
+						class="address-item J_addressItem  <%if(addressList[i].default_address){%>selected <%}%>" data-id="<%=addressList[i]._id%>">
+
+						<dl>
+							<dt> <em class="uname"><%=addressList[i].name%></em> </dt>
+							<dd class="utel"><%=addressList[i].phone%></dd>
+							<dd class="uaddress"> <%=addressList[i].address%> </dd>
+						</dl>
+
+						<div class="actions" data-id="<%=addressList[i]._id%>">
+							<a href="javascript:void(0);" class="modify addressModify">修改</a>
+						</div>
+					</div>
+					<%}%>
 			
 
 
@@ -74,27 +76,27 @@
 
 
 				<%for(var i=0;i<orderList.length;i++){%>
-				<li class="clearfix">
-					<div class="col col-img">
-						<img src="<%=orderList[i].goods_img%>" width="30" height="30">
-					</div>
-					<div class="col col-name">
+					<li class="clearfix">
+						<div class="col col-img">
+							<img src="<%=orderList[i].goods_img%>" width="30" height="30">
+						</div>
+						<div class="col col-name">
 
-						<a href="#" target="_blank">
-							<%=orderList[i].title%>
-						</a>
-					</div>
+							<a href="#" target="_blank">
+								<%=orderList[i].title%>
+							</a>
+						</div>
 
-					<div class="col col-price">
-						<%=orderList[i].price%>元 x <%=orderList[i].num%> </div>
-					<div class="col col-status">
-						&nbsp;
-					</div>
-					<div class="col col-total">
-						<%=orderList[i].num * orderList[i].price%>元
-					</div>
-				</li>
-				<%}%>
+						<div class="col col-price">
+							<%=orderList[i].price%>元 x <%=orderList[i].num%> </div>
+						<div class="col col-status">
+							&nbsp;
+						</div>
+						<div class="col col-total">
+							<%=orderList[i].num * orderList[i].price%>元
+						</div>
+					</li>
+					<%}%>
 				
 			</ul>
 		</div>
@@ -186,303 +188,321 @@
 				<li class="clearfix total-price">
 					<label>应付总额：</label>
 					<span class="val"><em data-id="J_totalPrice"><%=allPrice%></em>元</span>
-				</li>
-				</ul>
-			</div>
-		</div>
-
-		<div class="section-bar clearfix">
-			<div class="fl">
-				<div class="seleced-address hide" id="J_confirmAddress">
+					</li>
+					</ul>
 				</div>
-				<div class="big-pro-tip hide J_confirmBigProTip"></div>
 			</div>
-			<div class="fr">
-				<a href="#" class="btn btn-primary">去结算</a>
-			</div>
-		</div>
-	</div>
 
-
-	<!-- 收货地址增加 -->
-	<div class="modal fade" id="addAddress" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-		<div class="modal-dialog" role="document">
-			<div class="modal-content">
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
-							aria-hidden="true">&times;</span></button>
-					<h4 class="modal-title" id="myModalLabel">增加收货地址</h4>
+			<div class="section-bar clearfix">
+				<div class="fl">
+					<div class="seleced-address hide" id="J_confirmAddress">
+					</div>
+					<div class="big-pro-tip hide J_confirmBigProTip"></div>
 				</div>
-				<div class="modal-body">
-					<div class="form-group">
-						<input type="text" name="name" id="add_name" class="form-control" placeholder="姓名">
-
-					</div>
-					<div class="form-group">
-						<input type="text" name="phone" id="add_phone" class="form-control" placeholder="电话">
-					</div>
-
-					<div class="form-group">
-						<textarea name="address" id="add_address" class="form-control" cols="78" rows="4"
-							placeholder="详细地址"></textarea>
-					</div>
-
-					<div class="form-group">
-						<input type="text" name="zipcode" id="add_zipcode" class="form-control" placeholder="邮政编码">
-					</div>
-
-				</div>
-
-				<div class="modal-footer">
-
-					<button type="button" class="btn btn-primary" id="addAddressButton">增加</button>
-
-					<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+				<div class="fr">
+					<input type="submit" class="btn btn-primary"  value="立即下单" />
 				</div>
 			</div>
 		</div>
-	</div>
+</form>
 
-
-
-	<!-- 收货地址修改 -->
-	<div class="modal fade" id="editAddress" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-		<div class="modal-dialog" role="document">
-			<div class="modal-content">
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
-							aria-hidden="true">&times;</span></button>
-					<h4 class="modal-title" id="myModalLabel">修改收货地址</h4>
-				</div>
-				<div class="modal-body">
-					<div class="form-group">
-
-						<input type="hidden" name="id" id="edit_id" />
-						<input type="text" name="name" id="edit_name" class="form-control" placeholder="姓名">
-
-					</div>
-					<div class="form-group">
-						<input type="text" name="phone" id="edit_phone" class="form-control" placeholder="电话">
-					</div>
-
-					<div class="form-group">
-						<textarea name="address" id="edit_address" class="form-control" cols="78" rows="4"
-							placeholder="详细地址"></textarea>
-					</div>
-
-					<div class="form-group">
-						<input type="text" name="zipcode" id="edit_zipcode" class="form-control" placeholder="邮政编码">
-					</div>
+<!-- 收货地址增加 -->
+<div class="modal fade" id="addAddress" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+						aria-hidden="true">&times;</span></button>
+				<h4 class="modal-title" id="myModalLabel">增加收货地址</h4>
+			</div>
+			<div class="modal-body">
+				<div class="form-group">
+					<input type="text" name="name" id="add_name" class="form-control" placeholder="姓名">
 
 				</div>
-
-				<div class="modal-footer">
-
-					<button type="button" class="btn btn-primary" id="editAddressButton">修改</button>
-
-					<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+				<div class="form-group">
+					<input type="text" name="phone" id="add_phone" class="form-control" placeholder="电话">
 				</div>
+
+				<div class="form-group">
+					<textarea name="address" id="add_address" class="form-control" cols="78" rows="4"
+						placeholder="详细地址"></textarea>
+				</div>
+
+				<div class="form-group">
+					<input type="text" name="zipcode" id="add_zipcode" class="form-control" placeholder="邮政编码">
+				</div>
+
+			</div>
+
+			<div class="modal-footer">
+
+				<button type="button" class="btn btn-primary" id="addAddressButton">增加</button>
+
+				<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
 			</div>
 		</div>
 	</div>
+</div>
 
-	<script>
 
-		$(function () {
 
-			// 增加收货地址
-			$('#addAddressButton').click(function () {
+<!-- 收货地址修改 -->
+<div class="modal fade" id="editAddress" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+						aria-hidden="true">&times;</span></button>
+				<h4 class="modal-title" id="myModalLabel">修改收货地址</h4>
+			</div>
+			<div class="modal-body">
+				<div class="form-group">
 
-				var name = $('#add_name').val();
-				var phone = $('#add_phone').val();
-				var address = $('#add_address').val();
-				var zipcode = $('#add_zipcode').val();
+					<input type="hidden" name="id" id="edit_id" />
+					<input type="text" name="name" id="edit_name" class="form-control" placeholder="姓名">
 
-				//判断格式是否正确  -自己完善
-				if (name == '' || phone == "" || address == "") {
+				</div>
+				<div class="form-group">
+					<input type="text" name="phone" id="edit_phone" class="form-control" placeholder="电话">
+				</div>
 
-					alert('格式不正确')
-					return false;
+				<div class="form-group">
+					<textarea name="address" id="edit_address" class="form-control" cols="78" rows="4"
+						placeholder="详细地址"></textarea>
+				</div>
+
+				<div class="form-group">
+					<input type="text" name="zipcode" id="edit_zipcode" class="form-control" placeholder="邮政编码">
+				</div>
+
+			</div>
+
+			<div class="modal-footer">
+
+				<button type="button" class="btn btn-primary" id="editAddressButton">修改</button>
+
+				<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script>
+
+	$(function () {
+
+		// 增加收货地址
+		$('#addAddressButton').click(function () {
+
+			var name = $('#add_name').val();
+			var phone = $('#add_phone').val();
+			var address = $('#add_address').val();
+			var zipcode = $('#add_zipcode').val();
+
+			//判断格式是否正确  -自己完善
+			if (name == '' || phone == "" || address == "") {
+
+				alert('格式不正确')
+				return false;
+			}
+			//csrf
+			//csrf
+			$.post('/user/addAddress', { name: name, phone: phone, address: address, zipcode: zipcode }, function (response) {
+
+				var addressList = response.result;
+
+				var str = '';
+
+				if (response.success == true) {
+
+					for (var i = 0; i < addressList.length; i++) {
+
+						if (addressList[i].default_address) {
+
+							str += '<div class="address-item J_addressItem selected" data-id="' + addressList[i]._id + '"> ';
+							str += '<dl>';
+							str += '<dt> <em class="uname">' + addressList[i].name + '</em> </dt>';
+							str += '<dd class="utel">' + addressList[i].phone + '</dd>';
+							str += '<dd class="uaddress">' + addressList[i].address + '</dd>';
+							str += '</dl>';
+
+							str += '<div class="actions">';
+							str += '<a href="javascript:void(0);" data-id="' + addressList[i]._id + '" class="modify addressModify">修改</a>';
+							str += '</div>';
+							str += '</div>';
+
+						} else {
+
+							str += '<div class="address-item J_addressItem" data-id="' + addressList[i]._id + '"> ';
+							str += '<dl>';
+							str += '<dt> <em class="uname">' + addressList[i].name + '</em> </dt>';
+							str += '<dd class="utel">' + addressList[i].phone + '</dd>';
+							str += '<dd class="uaddress">' + addressList[i].address + '</dd>';
+							str += '</dl>';
+
+							str += '<div class="actions">';
+							str += '<a href="javascript:void(0);" data-id="' + addressList[i]._id + '" class="modify addressModify">修改</a>';
+							str += '</div>';
+							str += '</div>';
+
+						}
+
+					}
+
+					//增加
+
+					$("#addressList").html(str);
+
+
+				} else {
+					alert('增加失败');
 				}
-				//csrf
-				//csrf
-				$.post('/user/addAddress', { name: name, phone: phone, address: address, zipcode: zipcode }, function (response) {
-
-					var addressList = response.result;
-
-					var str = '';
-
-					if (response.success == true) {
-
-						for (var i = 0; i < addressList.length; i++) {
-
-							if (addressList[i].default_address) {
-
-								str += '<div class="address-item J_addressItem selected" data-id="' + addressList[i]._id + '"> ';
-								str += '<dl>';
-								str += '<dt> <em class="uname">' + addressList[i].name + '</em> </dt>';
-								str += '<dd class="utel">' + addressList[i].phone + '</dd>';
-								str += '<dd class="uaddress">' + addressList[i].address + '</dd>';
-								str += '</dl>';
-
-								str += '<div class="actions">';
-								str += '<a href="javascript:void(0);" data-id="' + addressList[i]._id + '" class="modify addressModify">修改</a>';
-								str += '</div>';
-								str += '</div>';
-
-							} else {
-
-								str += '<div class="address-item J_addressItem" data-id="' + addressList[i]._id + '"> ';
-								str += '<dl>';
-								str += '<dt> <em class="uname">' + addressList[i].name + '</em> </dt>';
-								str += '<dd class="utel">' + addressList[i].phone + '</dd>';
-								str += '<dd class="uaddress">' + addressList[i].address + '</dd>';
-								str += '</dl>';
-
-								str += '<div class="actions">';
-								str += '<a href="javascript:void(0);" data-id="' + addressList[i]._id + '" class="modify addressModify">修改</a>';
-								str += '</div>';
-								str += '</div>';
-
-							}
-
-						}
-
-						//增加
-
-						$("#addressList").html(str);
-
-
-					} else {
-						alert('增加失败');
-					}
 
 
 
 
 
-					$('#addAddress').modal('hide');
-
-				})
-
-			})
-
-			// 选择默认收货地址
-			$("#addressList .J_addressItem").click(function () {
-				$(this).addClass("selected").siblings().removeClass("selected");
-				var id = $(this).attr("data-id");
-				$.get("/user/changeDefaultAddress?id=" + id, function (result) {
-
-				})
-			})
-
-			// 获取修改信息
-			$(".actions").click(function (e) {
-
-				console.log("11")
-
-				e.stopPropagation();
-				var id = $(this).attr("data-id");
-				$.get("/user/getOneAddressList?id=" + id, function (response) {
-					// console.log(response);
-					if (response.msg) {
-						$('#editAddress').modal('show');
-						var addressInfo = response.msg[0];
-						$("#edit_id").val(addressInfo._id);
-						$('#edit_name').val(addressInfo.name);
-						$('#edit_phone').val(addressInfo.phone);
-						$('#edit_address').val(addressInfo.address);
-						$('#edit_zipcode').val(addressInfo.zipcode);
-					} else {
-						alert("获取收货地址失败")
-					}
-				})
-			})
-
-			// 修改地址
-			$('#editAddressButton').click(function () {
-
-				var id = $("#edit_id").val();
-				var name = $('#edit_name').val();
-				var phone = $('#edit_phone').val();
-				var address = $('#edit_address').val();
-				var zipcode = $('#edit_zipcode').val();
-
-				//csrf
-				$.post('/user/editOneAddressList', { id: id, name: name, phone: phone, address: address, zipcode: zipcode }, function (response) {
-
-					var addressList = response.result;
-
-					console.log(addressList)
-
-					var str = '';
-
-					if (response.success == true) {
-
-						for (var i = 0; i < addressList.length; i++) {
-
-							if (addressList[i].default_address) {
-
-								str += '<div class="address-item J_addressItem selected" data-id="' + addressList[i]._id + '"> ';
-								str += '<dl>';
-								str += '<dt> <em class="uname">' + addressList[i].name + '</em> </dt>';
-								str += '<dd class="utel">' + addressList[i].phone + '</dd>';
-								str += '<dd class="uaddress">' + addressList[i].address + '</dd>';
-								str += '</dl>';
-
-								str += '<div class="actions">';
-								str += '<a href="javascript:void(0);" data-id="' + addressList[i]._id + '" class="modify addressModify">修改</a>';
-								str += '</div>';
-								str += '</div>';
-
-							} else {
-
-								str += '<div class="address-item J_addressItem" data-id="' + addressList[i]._id + '"> ';
-								str += '<dl>';
-								str += '<dt> <em class="uname">' + addressList[i].name + '</em> </dt>';
-								str += '<dd class="utel">' + addressList[i].phone + '</dd>';
-								str += '<dd class="uaddress">' + addressList[i].address + '</dd>';
-								str += '</dl>';
-
-								str += '<div class="actions">';
-								str += '<a href="javascript:void(0);" data-id="' + addressList[i]._id + '" class="modify addressModify">修改</a>';
-								str += '</div>';
-								str += '</div>';
-
-							}
-
-						}
-
-						//增加
-
-						$("#addressList").html(str);
-
-
-					} else {
-						alert('修改失败');
-					}
-
-					$('#editAddress').modal('hide');
-
-				})
+				$('#addAddress').modal('hide');
 
 			})
 
 		})
 
+		// 选择默认收货地址
+		$("#addressList .J_addressItem").click(function () {
+			$(this).addClass("selected").siblings().removeClass("selected");
+			var id = $(this).attr("data-id");
+			$.get("/user/changeDefaultAddress?id=" + id, function (result) {
 
-	</script>
+			})
+		})
+
+		// 获取修改信息
+		$(".actions").click(function (e) {
+
+			console.log("11")
+
+			e.stopPropagation();
+			var id = $(this).attr("data-id");
+			$.get("/user/getOneAddressList?id=" + id, function (response) {
+				// console.log(response);
+				if (response.msg) {
+					$('#editAddress').modal('show');
+					var addressInfo = response.msg[0];
+					$("#edit_id").val(addressInfo._id);
+					$('#edit_name').val(addressInfo.name);
+					$('#edit_phone').val(addressInfo.phone);
+					$('#edit_address').val(addressInfo.address);
+					$('#edit_zipcode').val(addressInfo.zipcode);
+				} else {
+					alert("获取收货地址失败")
+				}
+			})
+		})
+
+		// 修改地址
+		$('#editAddressButton').click(function () {
+
+			var id = $("#edit_id").val();
+			var name = $('#edit_name').val();
+			var phone = $('#edit_phone').val();
+			var address = $('#edit_address').val();
+			var zipcode = $('#edit_zipcode').val();
+
+			//csrf
+			$.post('/user/editOneAddressList', { id: id, name: name, phone: phone, address: address, zipcode: zipcode }, function (response) {
+
+				var addressList = response.result;
+
+				console.log(addressList)
+
+				var str = '';
+
+				if (response.success == true) {
+
+					for (var i = 0; i < addressList.length; i++) {
+
+						if (addressList[i].default_address) {
+
+							str += '<div class="address-item J_addressItem selected" data-id="' + addressList[i]._id + '"> ';
+							str += '<dl>';
+							str += '<dt> <em class="uname">' + addressList[i].name + '</em> </dt>';
+							str += '<dd class="utel">' + addressList[i].phone + '</dd>';
+							str += '<dd class="uaddress">' + addressList[i].address + '</dd>';
+							str += '</dl>';
+
+							str += '<div class="actions">';
+							str += '<a href="javascript:void(0);" data-id="' + addressList[i]._id + '" class="modify addressModify">修改</a>';
+							str += '</div>';
+							str += '</div>';
+
+						} else {
+
+							str += '<div class="address-item J_addressItem" data-id="' + addressList[i]._id + '"> ';
+							str += '<dl>';
+							str += '<dt> <em class="uname">' + addressList[i].name + '</em> </dt>';
+							str += '<dd class="utel">' + addressList[i].phone + '</dd>';
+							str += '<dd class="uaddress">' + addressList[i].address + '</dd>';
+							str += '</dl>';
+
+							str += '<div class="actions">';
+							str += '<a href="javascript:void(0);" data-id="' + addressList[i]._id + '" class="modify addressModify">修改</a>';
+							str += '</div>';
+							str += '</div>';
+
+						}
+
+					}
+
+					//增加
+
+					$("#addressList").html(str);
+
+
+				} else {
+					alert('修改失败');
+				}
+
+				$('#editAddress').modal('hide');
+
+			})
+
+		})
+
+		// 判断是否重复点击 是否有选择的地址
+		var flag = true;
+		$("#checkoutForm").submit(function () {
+			if (flag) {
+				flag = false;
+				var addressCount = $('#addressList .selected').length;
+				if (!addressCount) {
+					alert('请填写默认收货地址');
+					return false;
+				}
+				return true;
+
+			} else {
+
+				return false;
+			}
+
+		})
+	})
+
+
+</script>
 
 
 
-	<!-- footer -->
-	<footer class="center">
+<!-- footer -->
+<footer class="center">
 
-		<div class="mt20">小米商城|MIUI|米聊|多看书城|小米路由器|视频电话|小米天猫店|小米淘宝直营店|小米网盟|小米移动|隐私政策|Select Region</div>
-		<div>©mi.com 京ICP证110507号 京ICP备10046444号 京公网安备11010802020134号 京网文[2014]0059-0009号</div>
-		<div>违法和不良信息举报电话：185-0130-1238，本网站所列数据，除特殊说明，所有数据均出自我司实验室测试</div>
-	</footer>
+	<div class="mt20">小米商城|MIUI|米聊|多看书城|小米路由器|视频电话|小米天猫店|小米淘宝直营店|小米网盟|小米移动|隐私政策|Select Region</div>
+	<div>©mi.com 京ICP证110507号 京ICP备10046444号 京公网安备11010802020134号 京网文[2014]0059-0009号</div>
+	<div>违法和不良信息举报电话：185-0130-1238，本网站所列数据，除特殊说明，所有数据均出自我司实验室测试</div>
+</footer>
 
-	</body>
+</body>
 
-	</html>
+</html>

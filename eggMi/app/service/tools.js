@@ -102,6 +102,14 @@ async getDay(){
   return day;
 }
 
+  //订单如何生成
+async getOrderId(){
+  var nowTime=await this.getTime();   
+  var randomNum=await this.getRandomNum();
+  return nowTime.toString()+randomNum.toString();
+
+}
+
 }
 
 module.exports = ToolsService;
