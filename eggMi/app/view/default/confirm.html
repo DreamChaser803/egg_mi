@@ -6,6 +6,24 @@
 
 <script src="/public/default/js/bootstrap.js"></script>
 
+<link rel="stylesheet" href="/public/default/css/bootstrap.css" />
+
+<style>
+
+	.lcode{
+
+		padding-right: 80px;
+
+	}
+
+
+	.rphone{
+		width: 240px;
+	}
+
+</style>
+
+
 <!-- start banner_x -->
 <div class="banner_x center clearfix">
 	<a href="/" target="_blank">
@@ -80,8 +98,8 @@
 				
 				<div class="payment-body">
 					<ul class="clearfix payment-list J_paymentList J_linksign-customize">
-						<li id="J_weixin" data-stat-id="4971b7cf6ccf0faf" onclick="_msq.push(['trackEvent', 'f1542ececd0b6bc5-4971b7cf6ccf0faf', '', 'pcpid', '']);"><img src="//c1.mifile.cn/f/i/16/pay/weixinpay0701.png" alt="微信支付" style="margin-left: 0;"></li>
-						<li class="J_bank" data-stat-id="4971b7cf6ccf0faf" onclick="_msq.push(['trackEvent', 'f1542ececd0b6bc5-4971b7cf6ccf0faf', '', 'pcpid', '']);"><input type="radio" name="payOnlineBank" id="alipay" value="alipay"> <img src="//s01.mifile.cn/i/banklogo/payOnline_zfb.png?ver2015" alt="支付宝" style="margin-left: 0;"></li>
+						<li id="weixinPay"><img src="//c1.mifile.cn/f/i/16/pay/weixinpay0701.png" alt="微信支付" style="margin-left: 0;"></li>
+						<li class="J_bank" id="alipay"> <a target="_blank" href="/alipay/pay?id=<%=orderResult._id%>"> <img src="//s01.mifile.cn/i/banklogo/payOnline_zfb.png?ver2015" alt="支付宝" style="margin-left: 0;"></a></li>
 						
 					</ul>
 				</div>
@@ -91,13 +109,86 @@
 	</div>
 </div>
 
+
+
+<div class="modal fade" id="alipayModel" tabindex="-1" role="dialog">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<h4 class="modal-title" id="myModalLabel">正在支付...</h4>
+				</div>
+				<div class="modal-body">
+					
+
+					<a href="#">已经支付成功</a>
+
+					<br>
+
+					<br>
+
+					<br>
+
+
+					<a href="#">未支付成功</a>
+					
+
+				</div>
+				
+		</div>
+	</div>
+</div>
+
+
+<div class="modal fade" id="weixinPayModel" tabindex="-1" role="dialog">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<h4 class="modal-title" id="myModalLabel">微信支付</h4>
+				</div>
+				<div class="modal-body">
+					
+					 <img class="lcode" src="/weixinpay/pay?id=1242141244" />		
+
+
+
+					 <img class="rphone"  src="/public/default/image/phone.png" />
+					
+
+
+
+				</div>				
+		</div>
+	</div>
+</div>
+
+
+
+
 <script>
 	$(function(){
 
-			$(".show-detail").click(function(){
+		$(".show-detail").click(function(){
 
-				$(".order-detail").slideToggle();
-			})
+			$(".order-detail").slideToggle();
+		})
+
+		$("#alipay").click(function(){
+
+				$('#alipayModel').modal('show');
+
+		})
+
+		$("#weixinPay").click(function(){
+
+				$('#weixinPayModel').modal('show');
+
+		})
+
+
+		
+
 	})
 </script>
 

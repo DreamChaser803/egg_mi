@@ -7,6 +7,8 @@
     "declarations": true
   },
   "dependencies": {
+    "alipay-mobile": "^4.0.2",
+    "crypto": "^1.0.1",
     "egg": "^2.15.1",
     "egg-mongoose": "^3.2.0",
     "egg-redis": "^2.4.0",
@@ -14,11 +16,15 @@
     "egg-view-ejs": "^2.0.1",
     "egg-view-nunjucks": "^2.2.0",
     "jimp": "^0.14.0",
+    "koa-xml-body": "^2.2.0",
     "md5": "^2.2.1",
     "mz-modules": "^2.1.0",
+    "qr-image": "^3.2.0",
+    "request": "^2.88.2",
     "showdown": "^1.9.1",
     "silly-datetime": "^0.1.2",
-    "svg-captcha": "^1.4.0"
+    "svg-captcha": "^1.4.0",
+    "xml2js": "^0.4.23"
   },
   "devDependencies": {
     "autod": "^3.0.1",

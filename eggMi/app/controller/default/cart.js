@@ -251,7 +251,7 @@ class CartController extends Controller {
 
         var cartList = this.ctx.service.cookies.get("cartList");
         // console.log(cartList)
-        if (cartList.length > 0) {
+        if ( cartList && cartList.length > 0) {
             var allPrice = 0;
             for (var i = 0; i < cartList.length; i++) {
                 if (cartList[i].checked) {

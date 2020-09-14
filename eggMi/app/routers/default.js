@@ -9,6 +9,7 @@ module.exports = app => {
   //中间件
   let initMiddleware = app.middleware.init({}, app)
   const userauthMiddleware = app.middleware.userauth({}, app);
+  const xmlparseMiddleware = app.middleware.xmlparse({}, app);
 
 
   router.get('/', initMiddleware, controller.default.index.index);
@@ -73,13 +74,33 @@ module.exports = app => {
 
 
   //去结算
-  router.get('/buy/checkout', initMiddleware, userauthMiddleware,controller.default.buy.checkout);
-  
+  router.get('/buy/checkout', initMiddleware, userauthMiddleware, controller.default.buy.checkout);
+
   //确认订单去支付
   router.get('/buy/confirm', initMiddleware, userauthMiddleware, controller.default.buy.confirm);
-  
+
   //提交订单
   router.post('/buy/doOrder', initMiddleware, userauthMiddleware, controller.default.buy.doOrder);
+
+
+
+  //支付
+  router.get('/alipay/pay', initMiddleware, controller.default.alipay.pay);
+
+  //支付成功回调
+  router.get('/alipay/alipayReturn', initMiddleware, controller.default.alipay.alipayReturn);
+
+  //支付成功异步通知   注意关闭csrf验证
+  router.post('/alipay/alipayNotify', initMiddleware, xmlparseMiddleware, controller.default.alipay.alipayNotify);
+
+
+
+  // 微信支付
+  router.get('/weixinpay/pay', initMiddleware, controller.default.weixinpay.pay);
+
+  //异步通知   注意关闭csrf验证
+  router.post('/weixinpay/weixinpayNotify', initMiddleware, xmlparseMiddleware, controller.default.weixinpay.weixinpayNotify);
+
 
   // address   收货地址（api接口）
   router.post('/user/addAddress', initMiddleware, userauthMiddleware, controller.default.address.addAddress);
