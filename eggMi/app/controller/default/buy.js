@@ -42,7 +42,7 @@ class BuyController extends Controller {
 
 
   }
-
+  // 增加订单
   async doOrder() {
     /*
     1、获取收货地址信息
@@ -125,7 +125,8 @@ class BuyController extends Controller {
       this.ctx.redirect('/checkout');
     }
   }
-  //确认订单  支付
+
+  //确认订单  支付 页面
   async confirm() {
 
     var id = this.ctx.request.query.id; // order id
@@ -138,14 +139,48 @@ class BuyController extends Controller {
 
       await this.ctx.render('default/confirm.html', {
         orderResult: orderResult[0],
-        orderItemResult: orderItemResult
+        orderItemResult: orderItemResult,
+        id: id
       });
     } else {
       this.ctx.redirect("/")
     }
 
+  }
 
+  //检测订单是否支付
+  async getOrderPayStatus() {
+    var id = this.ctx.request.query.id;
 
+    if (id) {
+
+      try {
+        var orderRes = await this.ctx.model.Order.findOne({ "_id": id });
+      
+        if (orderRes && orderRes.pay_status == 1 && orderRes.order_status == 1) {
+          this.ctx.body = {
+            success: true,
+            message: '已支付'
+          }
+        } else {
+          this.ctx.body = {
+            success: false,
+            message: '未支付'
+          }
+        }
+      } catch (error) {
+        this.ctx.body = {
+          success: false,
+          message: '未支付'
+        }
+      }
+
+    } else {
+      this.ctx.body = {
+        success: false,
+        message: "未支付"
+      }
+    }
   }
 }
 

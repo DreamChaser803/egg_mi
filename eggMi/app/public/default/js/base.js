@@ -10,6 +10,8 @@
       this.initContentTabs();
 
       this.initColorSelect();
+
+      this.initLogin();
     },
     initSwiper() {
       new Swiper('.swiper-container', {
@@ -88,6 +90,13 @@
 
       });
     },
+    initLogin(){
+      $("#loginButton").click(function(){
+          //  alert(location.href)
+          //  获取当前地址 以便登入成功后跳回来
+           location.href = "/login?returnUrl=" + encodeURIComponent(location.href)
+      })
+    }
   };
 
   $(function() {

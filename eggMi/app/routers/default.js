@@ -21,16 +21,6 @@ module.exports = app => {
   router.get('/getImagelist', initMiddleware, controller.default.product.getImagelist);
 
 
-  //用户中心
-  // router.get('/login', controller.default.user.login);
-
-  // router.get('/register', controller.default.user.register);
-
-  router.get('/user', controller.default.user.welcome);
-
-  router.get('/user/order', controller.default.user.order);
-
-
   //购物车
   router.get('/addCart', initMiddleware, controller.default.cart.addCart);
 
@@ -82,6 +72,9 @@ module.exports = app => {
   //提交订单
   router.post('/buy/doOrder', initMiddleware, userauthMiddleware, controller.default.buy.doOrder);
 
+  //检测订单是否支付
+  router.get('/buy/getOrderPayStatus', initMiddleware, userauthMiddleware, controller.default.buy.getOrderPayStatus);
+
 
 
   //支付
@@ -113,4 +106,7 @@ module.exports = app => {
 
   router.post('/user/editOneAddressList', initMiddleware, userauthMiddleware, controller.default.address.editOneAddressList);
 
+
+  // 用户中心
+  router.get('/user/order', initMiddleware, userauthMiddleware, controller.default.user.order);
 };

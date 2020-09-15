@@ -6,7 +6,9 @@ class PassController extends Controller {
 
   //登录
   async login() {
-    await this.ctx.render('default/pass/login.html');
+    var returnUrl = this.ctx.request.query.returnUrl;
+    returnUrl=returnUrl?decodeURIComponent(returnUrl):'/';
+    await this.ctx.render('default/pass/login.html',{returnUrl : returnUrl});
   }
 
   // 登入功能
