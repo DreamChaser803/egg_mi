@@ -1,6 +1,6 @@
 .address-item {
 	width: 268px;
-	height: 178px;
+	height: 138px;
 	border: 1px solid #e0e0e0;
 	cursor: pointer;
 	position: relative;
@@ -1046,7 +1046,7 @@
 	float: right;
 	
 	width: 200px;
-	height: 40px;
+
 	line-height: 40px;
     color: #fff;
     background: rgb(255,103,0);

@@ -56,6 +56,7 @@ class BuyController extends Controller {
 
     /*防止提交重复订单*/
     var orderSign = this.ctx.request.body.orderSign;
+    var d = new Date()
 
     if (orderSign != this.ctx.session.orderSign) {
       return false
@@ -88,17 +89,19 @@ class BuyController extends Controller {
       var order_status = 0;
 
       var orderModel = new this.ctx.model.Order({
-        order_id, name, phone, address, zipcode, pay_status, pay_type, order_status, all_price
+        "add_time": d.getTime(),uid,order_id, name, phone, address, zipcode, pay_status, pay_type, order_status, all_price
       })
       var orderResult = await orderModel.save();
       // console.log(orderResult)
       if (orderResult && orderResult._id) {
-
+        
         for (var i = 0; i < orderList.length; i++) {
           var json = {
+            "add_time": d.getTime(),
+            "uid":uid,
             "order_id": orderResult._id,   //订单id
             "product_title": orderList[i].title,
-            "product_id": orderList[i]._id,
+            "product_id": orderList[i]._id, // goods id
             "product_img": orderList[i].goods_img,
             "product_price": orderList[i].price,
             "product_num": orderList[i].num
