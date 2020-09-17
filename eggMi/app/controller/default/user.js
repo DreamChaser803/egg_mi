@@ -1,5 +1,7 @@
 'use strict';
 
+const order = require('../../model/order');
+
 const Controller = require('egg').Controller;
 
 class UserController extends Controller {
@@ -16,7 +18,7 @@ class UserController extends Controller {
 
     var json={"uid":this.app.mongoose.Types.ObjectId(uid)};   //查询当前用户下面的所有订单
     
-    //筛选
+    //筛选 
     if(order_status!=-1){        
         json=Object.assign(json,{"order_status":parseInt(order_status)});
     }
@@ -44,10 +46,12 @@ class UserController extends Controller {
             /*            
              { uid: 5c10c2dfd702ac47bc58ab45,
               '$or':
-              [ { _id: 5c41955b10f6400bb0c850ab },
-                { _id: 5c42a48be6389d22a4396833 } ] }
+               [ 
+                 { _id: 5c41955b10f6400bb0c850ab },
+                 { _id: 5c42a48be6389d22a4396833 } 
+               ] 
+            }
             */
-
         }else{
           // 错误 给个不成立的无效条件
           json=Object.assign(json,{
@@ -96,8 +100,17 @@ class UserController extends Controller {
 
    
   async orderinfo() {
-    // this.ctx.body = '用户订单';
-    await this.ctx.render('default/user/order_info.html');
+    var id = this.ctx.request.query.id;
+    var uid = this.ctx.service.cookies.get("userinfo")._id;
+
+    var orderResult = await this.ctx.model.Order.find({"uid" : uid, "_id" : id});
+    orderResult = JSON.parse(JSON.stringify(orderResult)); // 拷贝
+    
+    orderResult[0].orderItems = await this.ctx.model.OrderItem.find({"uid" : uid, "order_id" : id});
+    // console.log(orderResult)
+
+    await this.ctx.render('default/user/order_info.html',{orderInfo:orderResult[0]});
+
   }
 
 
