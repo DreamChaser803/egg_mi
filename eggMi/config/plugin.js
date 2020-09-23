@@ -27,4 +27,15 @@ module.exports = {
     enable: true,
     package: 'egg-redis',
   },
+  // 配置全文搜索 配置出错
+  // elasticsearch: {
+  //   enable: true,
+  //   package: 'egg-es',
+  // },
+  // 配置 跨域请求
+  cors: {
+    enable: true,
+    package: 'egg-cors',
+  },
 };
+
